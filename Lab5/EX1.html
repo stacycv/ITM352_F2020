@@ -7,13 +7,47 @@
 </head>
 <body>
     Hi there.
+     
     <BR>
     <div id="ageDiv">
             <script>
-                var age = 240.01
+                var age = 240.1
                 document.getElementById("ageDiv").innerHTML = age;
+
             </script>
-    <BR>Bye now.
     </div>
+    <BR>
+    <div id=numKidsWantedDiv>
+        <script>
+            var numKidsWanted = 1
+            document.write("I would like to have " + numKidsWanted*stupid + " kid");
+        </script>
+    </div>
+    <BR>
+        <div id=myGloriousNameDiv>
+            <script>
+                var firstName = "Stacy"
+                var middleName = "Carmen"
+                var lastName = "Vasquez"
+                var fullName = firstName + " <BR> " + middleName  + " <BR> " + lastName + " <bR> " + firstName[0] + '.' + middleName[0] + '.' + lastName[0] + '.'
+                document.write(fullName);
+            </script>
+    </div>
+    <BR>
+        <script>
+                var fullNameGlorious = '<b>' +  firstName + '</b> <BR>' + '<em>' + middleName + '</em> <BR>' + "<p style='font-size:30px'>" + lastName + '</p>'
+                document.write(fullNameGlorious)
+        </script>
+    <BR>
+        <script>
+                amount = 1;
+                tax = amount*0.0413;
+    
+                var fullNameEx4 = firstName + " " + middleName  + " " + lastName
+                document.write("The tax on  " + fullNameEx4 + "'s bill is $" + tax.toFixed(2) + ".")
+
+
+        </script>
+
 </body>
 </html>
