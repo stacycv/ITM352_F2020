@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Exercise 1</h1>
+    <script>
+        // define important var and initialize them.
+        var age = 20;
+        var fav_num = 9;
+        var day_of_birth = 10;
+        var month_of_birth = 9;
+
+        var result1 = age + fav_num / day_of_birth * month_of_birth;
+
+        var result2 = (age + fav_num) / day_of_birth * month_of_birth;
+
+        document.write("result1=" + result1);
+        document.write("<BR>");
+        document.write("result2=" + result2);
+
+        var first_name = "Stacy"
+        var last_name = "Vasquez"
+
+        document.write("<BR>");
+        document.write(`${first_name} ${last_name}`);
+        
+        document.write("<BR>");
+
+        document.write(`
+<table border="1">
+    <tbody><tr><th>Line</th><th>Name</th></tr>
+    <tr><td>1.</td><td>${first_name}</td></tr>
+    <tr><td>2.</td><td>${first_name}</td></tr>
+    <tr><td>3.</td><td>\n${first_name}</td></tr>
+    <tr><td>4.</td><td>'\n${first_name}'</td></tr>
+    <tr><td>5.</td><td>"\n${first_name}"</td></tr>
+
+</tbody></table>
+`);
+    </script>
+</body>
+</html>
