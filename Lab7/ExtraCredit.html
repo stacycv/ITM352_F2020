@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 7</title>
+</head>
+<body>
+    <script>
+        month = 'January';          //Extra Credit
+        switch (month) {
+            case 'January':
+                numDays = 31;
+                break;
+            case 'February':
+                numDays = 28.25;
+                break;
+            case 'March':
+                numDays = 31;
+                break;
+            case 'April':
+                numDays = 30;
+                break;
+            case 'May':
+                numDays = 31;
+                break;
+            case 'June':
+                numDays = 30;
+                break;
+            case 'July':
+                numDays = 31;
+                break;
+            case 'August':
+                numDays = 31;
+                break;
+            case 'September':
+                numDays = 30;
+                break;
+            case 'October':
+                numDays = 31;
+                break;
+            case 'November':
+                numDays = 30;
+                break;
+            case 'December':
+                numDays = 31;
+                break;
+            default:
+                numDays = -1;
+                break;
+        }
+
+        var outputMonthDays = `There are ${numDays} days in ${month}!`;
+
+        document.write(outputMonthDays);
+
+
+    </script>
+</body>
+</html>
