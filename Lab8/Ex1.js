@@ -1,9 +1,8 @@
-var number = 1;     // Counter for age
+var number = 50;     // Counter for age
 var myAge = 20;     // My age
 
 
-console.log("silly counting prrogram for ex1")
-while (number <= myAge) {
-    console.log("Age=" + number);
-    number++;
+console.log("For loop Extra Credit")
+for( var number = 50; number >= Math.sqrt(myAge); number--) {
+    console.log(`Age= ${number}`);
 }
