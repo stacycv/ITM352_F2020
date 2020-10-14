@@ -20,8 +20,8 @@ var my_kid3 = {
 console.log("Age of kid3 = " + my_kids3["age"]);
 better_kids = [my_kid1, my_kid2, my_kid3];
 
-for (i=0, i<better_kids.length, i++) {
-    console.log("My kid "+ better_kids[i].name + " is " + better_kids[i].age + " years old");
+for (i=0; i<better_kids.length; i++) {
+    console.log("My kid " + better_kids[i].name + " is " + better_kids[i].age + " years old.");
 }
 
 /*for (i=0; i< my_kids.length; i++){
