@@ -1,0 +1,20 @@
+<TEXTAREA  id="a_test_area" rows="20" cols="40">
+    This is some text in the text area.
+    </TEXTAREA>
+    
+
+    <SELECT  name="a_select_box"><OPTION value="value_of_thing1">thing1</OPTION><OPTION value="value_of_thing2">thing2</OPTION><OPTION value="value_of_thing3">thing3</OPTION></SELECT>
+
+
+    <script>
+        function checkLogin() {
+            passwords = { "dport": "spaz", "kazman": "geek" };
+            var username = document.getElementsByName("username_textbox")[0].value;
+            var password = document.getElementsByName("password_textbox")[0].value;
+            if (passwords[username] == password) {
+                // window.location.href = "file:logged_in.html";
+                document.write(`Thank you ${username} for loggin in!`);
+            }
+            else { alert('incorrect login!'); }
+        }
+    </script>

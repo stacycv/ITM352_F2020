@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+//name function
+
+function testExample(a) {
+    var greeting = "Hi, my name is " + a;
+    return greeting;
+}
+var name = "Stacy";
+console.log(testExample(name));
+
+
+
+
+/*
+// annoymous function
+var testExample = function() {
+    var greeting = "Hi, my name is " + a;
+    return greeting;
+}
+var a = "Stacy"
+console.log(testExample(a));
+*/
+
+
+
+(function() {
+    var greeting = "Hi, my name is Stacy";
+    console.log(greeting);
+}())
+
+    </script>
+</body>
+</html>
