@@ -1,9 +1,11 @@
-{
-    "name":"Back Massage",
-    "time": "60 minute voucher",
-    "price": 75.00,
-    "image":
-},
+var products = [
+
+    {
+         "name":"Back Massage",
+        "time": "60 minute voucher",
+        "price": 75.00,
+        "image":
+    },
 
 {
     "name":"Back Massage",
