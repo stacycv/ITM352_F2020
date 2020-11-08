@@ -8,13 +8,13 @@
     if (params.has('submitPurchase')) {
         for (i = 0; i < products.length; i++) {
             if (params.has(`quantity${i}`)) {
-                a_quantity = params.get(`quantity${i}`);
-                quantities[i] = a_quantity;
+                a_qty = params.get(`quantity${i}`);
+                quantities[i] = a_qty;
             }
         }
 
     } else {
-        document.write('No form was submitted. Please return back to "Products" page to submit a form');
+        document.write('./products_display.html');
     }
 </script>
 
@@ -25,11 +25,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
 
     <style>
         body {
-            font-family: 'Sans';
+            font-family: 'Sans', serif;
         }
     </style>
 </head>
