@@ -1,6 +1,6 @@
 // referenced from assignment 1 scrreencast and lab 13
 var data = require('./public/products_data.js'); //must have data from product_data.js
-var products_array = data.products;
+var products = data.products;
 const queryString = ('query-string'); // so it'll load querystring
 var express = require('express'); //server requires express to run
 var app = express(); // run the express function and start express
@@ -28,7 +28,7 @@ app.post("/process_purchase", function(request, response) {
             validQuantities = validQuantities && isNonNegInt(qty);
         }
         // if all quantities are valid go to invoice
-        const stringified = queryString.stringify(POST);
+        const stringified = queryString.stringified(POST);
         if (validQuantities && hasQuantities) {
             response.redirect("./invoice.html?" + stringified); // invoice.html + data entered
         } else {
@@ -36,7 +36,7 @@ app.post("/process_purchase", function(request, response) {
         }
     }
 });
-//lab 13 reference
+//direct lab 13 reference
 function isNonNegInt(q, returnErrors = false) { //changed name to have more meaning
     errors = []; // assume no errors at first
     if (q == "") { q = 0; }
