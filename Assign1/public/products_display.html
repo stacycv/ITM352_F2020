@@ -14,7 +14,7 @@
 
     function checkQuantityTextbox(theTextbox) {
         errs = isNonNegInt(theTextbox.value, true);
-        if (errs.length == 0) errs = ['Vouchers wanted:'];
+        if (errs.length == 0) errs = ['Quantity:'];
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
@@ -94,6 +94,7 @@
         <footer>
 
             <input type="submit" value="Submit Purchase" name="submitPurchase">
+
         </footer>
     </form>
 </body>
