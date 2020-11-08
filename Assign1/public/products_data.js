@@ -33,7 +33,7 @@ var products = [
         "time": "60 min",
         "price": 65.00,
         "image": "./images/thaiFootMassageA1.jpg"
-    }
+    },
     // all images included are findings from random google searches
     // array was used from Assign 1 page that said to reference SPP3
 ];

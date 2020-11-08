@@ -1,15 +1,10 @@
 <script src="./products_data.js" type="text/javascript">
     // links array
 </script>
-
 <script>
     // from invoices
     let params = (new URL(document.location)).searchParams; //looks at submitPurchase, and looks for quantities
     var quantities = [];
-
-    // processing the invoice; makes a form from the data
-
-    // loop that get info
     if (params.has('submitPurchase')) {
         for (i = 0; i < products.length; i++) {
             if (params.has(`quantity${i}`)) {
@@ -18,6 +13,8 @@
             }
         }
 
+    } else {
+        document.write('No form was submitted. Please return back to "Products" page to submit a form');
     }
 </script>
 

@@ -1,63 +1,48 @@
-//Creating a server via express//
-
-var data = require('./public/product_data.js'); //get the data from product_data.js
+// referenced from assignment 1 scrreencast and lab 13
+var data = require('./public/products_data.js'); //must have data from product_data.js
 var products = data.products;
-
-// So it'll load querystring// 
-const queryString = require('query-string'); // so it'll load querystring// 
-var filename = 'user_data.json'; // new//
-var fs = require('fs'); //Load file system//
-
-var express = require('express'); //Server requires express to run//
-var app = express(); //Run the express function and start express//
+const queryString = ('query-string'); // so it'll load querystring
+var fs = require('fs'); // In lab 13, not sure if needed
+var express = require('express'); //server requires express to run
+var app = express(); // run the express function and start express
 var myParser = require("body-parser");
 
-if (fs.existsSync(filename)) {
-    stats = fs.statSync(filename) //gets stats from file
-    console.log(filename + 'has' + stats.size + 'characters');
 
-    data = fs.readFileSync(filename, 'utf-8');
-    users_reg_data = JSON.parse(data);
-} else {
-    console.log(filename + 'does not exist!');
-}
-// Go to invoice if quantity values are good, if not redirect back to order page//
-//new//
-// means any path //
+// if valid redirect to invoice, if not go order page
 app.all('*', function(request, response, next) {
     console.log(request.method + ' to ' + request.path)
     next();
 });
 
-app.use(myParser.urlencoded({ extended: true }));
+app.use(myParser.urlencoded({ extended: true })); //get data in the body
+//to process the response from what is typed in the form
 
 app.post("/process_purchase", function(request, response) {
-    let POST = request.body; // data would be packaged in the body//
+    let POST = request.body;
 
     if (typeof POST['submitPurchase'] != 'undefined') {
-        var hasvalidquantities = true; // creating a varibale assuming that it'll be true// 
-        var hasquantities = false
+        var validQuantities = true; // creating a varable assuming that it'll be true
+        var hasQuantities = false
         for (i = 0; i < products.length; i++) {
-
             qty = POST[`quantity${i}`];
-            hasquantities = hasquantities || qty > 0; // If it has a value bigger than 0 then it is good//
-            hasvalidquantities = hasvalidquantities && isNonNegInt(qty); // if it is both a quantity over 0 and is valid//     
+            validQuantities = hasQuantities || qty > 0; // allowed if > than 0
+            validQuantities = validQuantities && isNonNegInt(qty);
         }
-        // if all quantities are valid, generate the invoice// 
+        // if all quantities are valid go to invoice
         const stringified = queryString.stringify(POST);
-        if (hasvalidquantities && hasquantities) {
-            response.redirect("./Invoice.html?" + stringified); // using the invoice.html and all the data that is input//
-        } else { response.send('Enter a valid quantity!') }
+        if (validQuantities && hasQuantities) {
+            response.redirect("./invoice.html?" + stringified); // invoice.html + data entered
+        } else { response.send('Please enter a valid quantity') }
     }
 });
-
-function isNonNegInt(q, returnErrors = false) {
-    errors = []; // assume that quantity data is valid 
-    if (q == "") { q = 0; }
-    if (Number(q) != q) errors.push('Not a number!'); //check if value is a number
-    if (q < 0) errors.push('Negative value!'); //check if value is a positive number
-    if (parseInt(q) != q) errors.push('Not an integer!'); //check if value is a whole number
+//lab 13 reference
+function isNonNegInt(qty, returnErrors = false) { //changed name to have more meaning
+    errors = []; // assume no errors at first
+    if (qty == "") { qty = 0; }
+    if (Number(qty) != qty) errors.push('Not a number!'); // Check if string is a number value
+    if (qty < 0) errors.push('Negative value!'); // Check if it is non-negative
+    if (parseInt(qty) != qty) errors.push('Not an integer!'); // Check that it is an integer
     return returnErrors ? errors : (errors.length == 0);
 }
-app.use(express.static('./public')); //Creates a static server using express from the public folder
+app.use(express.static('./public')); // makes a static server using express from the public
 app.listen(8080, () => console.log(`listen on port 8080`))

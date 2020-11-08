@@ -3,12 +3,12 @@
 </script>
 <script>
     //Referenced from assignment 1 examples
-    function isNonNegInt(q, return_errors = false) {
-        errors = []; // assume no errors at first
-        if (q == '') q = 0; // handle blank inputs as if they are 0
-        if (Number(q) != q) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
-        else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
-        else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+    function isNonNegInt(amount, return_errors = false) {
+        errors = []; // assuming no errors
+        if (amount == '') amount = 0; // handles blank inputs as 0s
+        if (Number(amount) != amount) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+        else if (amount < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+        else if (parseInt(amount) != amount) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
         return return_errors ? errors : (errors.length == 0);
     }
 
@@ -19,8 +19,8 @@
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
     window.onload = function() {
-        let params = (new URL(document.location)).searchParams; // get the query string which has the form data
-        // form was submitted so check that quantities are valid then redirect to invoice if ok.
+        let params = (new URL(document.location)).searchParams; // gets query string + form data
+        // when form is submitted, check if quantities are valid then redirect to invoice 
         if (params.has('submitPurchase')) {
             has_errors = false; // assume quantities are valid from the start
             total_qty = 0; // need to check if something was selected so we will look if the total > 0
@@ -32,16 +32,16 @@
                     product_form[`quantity${i}`].value = a_qty;
                     total_qty += a_qty;
                     if (!isNonNegInt(a_qty)) {
-                        has_errors = true; // oops, invalid quantity
+                        hasErrors = true; // invalid quantity
                         checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
                     }
                 }
             }
             // Now respond to errors or redirect to invoice if all is ok
-            if (has_errors) {
-                alert("Please enter only valid quantities!");
+            if (hasErrors) {
+                alert("Please enter only valid quantities");
             } else if (total_qty == 0) { // no quantity selections, just give a general alert
-                alert("Please select some quantities!");
+                alert("Please select some quantities");
             } else {
                 window.location = `./invoice.html${document.location.search}`;
                 window.stop;
@@ -55,25 +55,22 @@
 
 <head>
     <meta charset="utf-8">
-    <title>TRUE Express Spa</title>
-
+    <title>TRUE Empress Spa</title>
     <link href="products_style.css" rel="stylesheet">
 </head>
 
 <body>
-    <form name="product_display" action="process_purchase" method="POST">
+    <form name="product_form" action="process_purchase" method="POST">
         <header>
-            <h1>TRUE Express Spa</h1>
+            <h1>TRUE Empress Spa</h1>
             <link href="products_style.css" rel="stylesheet">
         </header>
-        <div class="row">
-            <div class="column"></div>
-            <div class="column"></div>
+        <div class="productsbox">
         </div>
         <div>
-
             <main>
                 <script>
+                    //all referenced from assignment 1 screencast
                     for (i = 0; i < products.length; i++) {
                         document.write(`
                                 <section class="item">
