@@ -1,156 +1,79 @@
- /* General */
- 
+/* style referenced from SmartPhoneProducts2 */
 
- html {
-  
-    font-family: 'Raleway', sans-serif;
-    background-color: yellow;
-    font-size: 10px;
-    
-  }
-  
-  body {
-    width: 800px;
-    margin: 0 auto;
-  }
-  
-  /* Typography */
-  
-  
-  h1, h2 {
-    
-    font-family: 'Cherry Swash', cursive;
-    margin: 0;
-    
+
+/* general styling */
+
+html {
+    font-family: 'Stan', serif;
+    background-image: url(./images/BackgroundSpa.jpg);
+    background-position: bottom;
+    background-size: initial;
+    font-size: 40px;
     text-align: center;
-  }
-  
-  
-  h1 {
-    font-size: 5rem;
-    background-size: 48px 48px;
-    background-blend-mode: lighten;
-  }
-  
-  h2 {
-    font-size: 2rem;
-    color: yellow;
-    text-align: right;
-    width: 160px;
-    position: absolute;
-    right: 4%;
-    z-index: 3000;
-    text-shadow: 2px 2px 1px black;
-    line-height: 2rem;
-    padding-top: 0.3rem;
-  }
-  
-  p {
-    font-size: 1.5rem;
-  }
-  
-  
-  /* block styling */
-  
-  
-  header, aside, main, footer {
-    padding: 20px;
-  }
-  
-  header {
-    border: 5px solid black;
-    border-bottom: 0;
-  }
-  
-  aside {
-    border-right: 5px solid black;
-  }
-  
-  
-  body > div {
-    border: 5px solid black;
-    display: flex;
-  }
-  
-  
-  footer {
-    border: 5px solid black;
-    border-top: 0;
-  }
-  
-  footer h1 {
-    font-style: italic;
-    font-size: 3rem;
-  }
-  
-  aside {
-    flex: 3;
-  }
-  
-  main {
-    flex: 7;
-  }
-  
-  
-  /*  Form styling */
-  
-  main {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-  }
-  
-  
-  aside {
-    display: flex;
-    align-items: stretch;
-    background: url(images/phone_globe.jpg) no-repeat 50% center;
-    padding: 50px 0;
-  }
-  
-  aside div {
-    margin-bottom: 20px;
-  }
-  
-  
-  /* Styling the products */
-  
-  
-  section {
-    width: 45%;
-    margin: 5px;
-    background-color: black;
-    position: relative;
-    height: 215px;
-  }
-  
-  section p {
-    color: yellow;
-    background: black;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+    /* Product Images, Price, and Quantity */
+}
+
+
+/*headings*/
+
+h1 {
+    font-family: 'Stan', serif;
+    text-align: left;
+    /* Title Page */
+    font-size: 60px;
+    color: white;
+}
+
+h2 {
+    font-family: 'Stan', serif;
     text-align: center;
-    border-radius: 50%;
-    box-shadow: 2px 2px 1px yellow;
-    position: absolute;
-    right: 10px;
-    bottom: -6px;
-    z-index: 2000;
-  }
-  
-  
-  .item {
-    background-size: 234px 24px;
-  }
-  
-  
-  .item img {
-      width: 200px;
-      height: 200px; 
-      
-      display: block;
-      position: absolute;
-      bottom: 0px;
-      
-  }
+    /* Product Names */
+    font-size: 40px;
+}
+
+div {
+    border: 10px;
+    border-color: whitesmoke;
+    display: flex;
+    text-align: center;
+}
+
+main {
+    display: -ms-grid;
+    flex-flow: fit;
+    justify-content: initial;
+    color: white;
+    font-family: 'Stan', serif;
+}
+
+footer {
+    text-align: left;
+    font-size: 1px;
+    color: white;
+}
+
+
+/*image */
+
+img {
+    width: 300px;
+    height: 300px;
+    position: left;
+    border-radius: 5px;
+}
+
+input[type=submit] {
+    width: 12em;
+    color: black;
+}
+
+.center {
+    display: block;
+    width: 30%;
+    border-radius: 8px;
+    border: 10px white;
+}
+
+
+/* Took from CSS Styling Website /*
+// took from friends who took from CSS Styling We because i didn't like the layout. W3 kept giving HTML so i just altered hers a bunch//
