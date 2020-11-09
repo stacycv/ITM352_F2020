@@ -1,7 +1,7 @@
 // referenced from assignment 1 scrreencast and lab 13
 var data = require('./public/products_data.js'); //must have data from product_data.js
 var products = data.products;
-const queryString = ('query-string'); // so it'll load querystring
+const queryString = require('query-string'); // so it'll load querystring
 var express = require('express'); //server requires express to run
 var app = express(); // run the express function and start express
 var myParser = require("body-parser");
@@ -28,11 +28,11 @@ app.post("/process_purchase", function(request, response) {
             validQuantities = validQuantities && isNonNegInt(qty);
         }
         // if all quantities are valid go to invoice
-        const stringify = queryString.stringified(POST);
+        const stringify = queryString.stringify(POST);
         if (validQuantities && hasQuantities) {
-            response.redirect("./invoice.html?" + stringified); // invoice.html + data entered
+            response.redirect("./invoice.html?" + stringify); // invoice.html + data entered
         } else {
-            response.redirect("./products_display.html?" + stringified)
+            response.redirect("./products_display.html?" + stringify)
         }
     }
 });
