@@ -3,7 +3,7 @@ var products = [
     {
         "name": "Roller",
         "price": 75.00,
-        "image": "./images/backMassageA1.jpg"
+        "image": "./images/massageRollerA1.jpg"
     },
     //P2
     {
