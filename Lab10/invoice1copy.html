@@ -1,93 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>y
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-    /* WOD Invoice 
-        creating sales that contain at least 5 different products */
+        /* WOD Invoice 
+                creating sales that contain at least 5 different products */
 
-//Product Data
-    // Product 1
-    /*
-        var item1 = 'Gillette Sensor 3 Razor';
-        var quantity1 = 2;
-        var price1 = 1.23;
-        var extendedPrice1 = quantity1 * price1;
-    */
+        //Product Data
+        // Product 1
+        /*
+            var item1 = 'Gillette Sensor 3 Razor';
+            var quantity1 = 2;
+            var price1 = 1.23;
+            var extendedPrice1 = quantity1 * price1;
+        */
 
-    productQuantities = [2,1,1,3,12]
+        productQuantities = [2, 1, 1, 3, 12]
 
-    
 
-      var product1 = {
-        "item": 'Gillette Sensor 3 Razor',
-        "quantity": productQuantities[0],
-        "SKU#": "1234",
-        "price": 1.23
-      };
-      product1.quantity = 0;
-      productQuantities.length
-      product1["price"] = 0;
-      product1["SKU#"] = "1234";
-      delete product1["SKU#"];
 
-    // Product 2
+        var product1 = {
+            "item": 'Gillette Sensor 3 Razor',
+            "quantity": productQuantities[0],
+            "SKU#": "1234",
+            "price": 1.23
+        };
+        product1.quantity = 0;
+        productQuantities.length
+        product1["price"] = 0;
+        product1["SKU#"] = "1234";
+        delete product1["SKU#"];
+
+        // Product 2
         var item2 = 'Barbasol Shaving Cream';
         var quantity2 = 1;
         var price2 = 2.46;
 
-    // Product 3
+        // Product 3
         var item3 = 'Nautica Cologne';
         var quantity3 = 1;
         var price3 = 6.17;
-    
-    // Product 4
+
+        // Product 4
         var item4 = 'Rubbing Alcohol';
         var quantity4 = 3;
         var price4 = 0.98;
 
-    // Product 5
+        // Product 5
         var item5 = 'Colgate Classic Toothbrush';
         var quantity5 = 12;
         var price5 = 1.89;
 
 
-   // Compute extended price
-    // var extended_price1 = quantity1 * price1
-     var extendedPrice1 = product1["quantity"] * product1.price;
-     var extendedPrice2 = quantity2 * price2
-     var extendedPrice3 = quantity3 * price3
-     var extendedPrice4 = quantity4 * price4
-     var extendedPrice5 = quantity5 * price5
+        // Compute extended price
+        // var extended_price1 = quantity1 * price1
+        var extendedPrice1 = product1["quantity"] * product1.price;
+        var extendedPrice2 = quantity2 * price2
+        var extendedPrice3 = quantity3 * price3
+        var extendedPrice4 = quantity4 * price4
+        var extendedPrice5 = quantity5 * price5
 
-    //Compute sub-total
+        //Compute sub-total
         var subtotal = extendedPrice1 + extendedPrice2 + extendedPrice3 + extendedPrice4 + extendedPrice5;
 
-    //Compute tax
+        //Compute tax
         var taxRate = 0.0575;
         var tax = taxRate * subtotal;
 
-    // Compute grand total
+        // Compute grand total
         var total = subtotal + tax;
-
-
-
     </script>
     <table border="2">
         <tbody>
-          <tr>
-            <th style="text-align: center;" width="43%">Item</th>
-            <th style="text-align: center;" width="11%">quantity</th>
-            <th style="text-align: center;" width="13%">price</th>
-            <th style="text-align: center;" width="54%">extended price</th>
-          </tr>
-    <script>
-    //Product Row 1
-        document.write(`
+            <tr>
+                <th style="text-align: center;" width="43%">Item</th>
+                <th style="text-align: center;" width="11%">quantity</th>
+                <th style="text-align: center;" width="13%">price</th>
+                <th style="text-align: center;" width="54%">extended price</th>
+            </tr>
+            <script>
+                //Product Row 1
+                document.write(`
           <tr>
             <td width="43%">${product1.item}</td>
             <td align="center" width="11%">${product1.quantity}</td>
@@ -95,8 +94,8 @@
             <td width="54%">\$${extendedPrice1}</td>
           </tr>
           `)
-    //Product Row 2
-    document.write(`
+                    //Product Row 2
+                document.write(`
           <tr>
             <td width="43%">${product2.item2}</td>
             <td align="center" width="11%">${product2.quantity2}</td>
@@ -104,8 +103,8 @@
             <td width="54%">\$${extendedPrice2}</td>
           </tr>
           `)
-    //Product Row 3
-    document.write(`
+                    //Product Row 3
+                document.write(`
           <tr>
             <td width="43%">${item3}</td>
             <td align="center" width="11%">${quantity3}</td>
@@ -113,8 +112,8 @@
             <td width="54%">\$${extendedPrice3}</td>
           </tr>
           `)
-    //Product Row 4
-    document.write(`
+                    //Product Row 4
+                document.write(`
           <tr>
             <td width="43%">${item4}</td>
             <td align="center" width="11%">${quantity4}</td>
@@ -122,8 +121,8 @@
             <td width="54%">\$${extendedPrice4}</td>
           </tr>
           `)
-    //Product Row 5
-    document.write(`
+                    //Product Row 5
+                document.write(`
           <tr>
             <td width="43%">${item5}</td>
             <td align="center" width="11%">${quantity5}</td>
@@ -131,25 +130,32 @@
             <td width="54%">\$${extendedPrice5}</td>
           </tr>
           `)
-    </script>
-          <tr>
-            <td colspan="4" width="100%">&nbsp;</td>
-          </tr>
-          <tr>
-            <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
-            <td width="54%">$<script>document.write(subtotal)</script></td>
-          </tr>
-          <tr>
-            <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ 5.75%</span></td>
-            <td width="54%">$<script>document.write(tax.toFixed(2))</script></td>
-          </tr>
-          <tr>
-            <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
-            <td width="54%"><strong>$<script>document.write(total.toFixed(2))</script></strong></td>
-          </tr>
+            </script>
+            <tr>
+                <td colspan="4" width="100%">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
+                <td width="54%">$
+                    <script>
+                        document.write(subtotal)
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ 5.75%</span></td>
+                <td width="54%">$
+                    <script>
+                        document.write(tax.toFixed(2))
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+                <td width="54%"><strong>$<script>document.write(total.toFixed(2))</script></strong></td>
+            </tr>
         </tbody>
-      </table>
-        </body>
+    </table>
+</body>
+
 </html>
-
-
