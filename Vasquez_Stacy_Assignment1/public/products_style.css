@@ -1,0 +1,78 @@
+/* style referenced from SmartPhoneProducts2 */
+
+
+/* general styling */
+
+html {
+    font-family: 'Stan', serif;
+    background-image: url(./images/slide2.jpg);
+    background-position: bottom;
+    background-size: cover;
+    font-size: 40px;
+    text-align: center;
+    /* Product Images, Price, and Quantity */
+}
+
+
+/*headings*/
+
+h1 {
+    font-family: 'Stan', serif;
+    text-align: center;
+    /* Title Page */
+    font-size: 30px;
+    color: white;
+}
+
+h2 {
+    font-family: 'Stan', serif;
+    text-align: center;
+    /* Product Names */
+    font-size: 30px;
+}
+
+div {
+    border: 10px;
+    border-color: whitesmoke;
+    display: flex;
+    text-align: center;
+}
+
+main {
+    display: -webkit-box;
+    flex-flow: row;
+    justify-content: space-around;
+    color: white;
+    font-family: 'Stan', serif;
+}
+
+footer {
+    text-align: center;
+    font-size: 5px;
+    color: white;
+}
+
+
+/*image */
+
+img {
+    width: 200px;
+    height: 200px;
+    position: center;
+    border-radius: 5px;
+}
+
+input[type=submit] {
+    width: 12em;
+    color: black;
+}
+
+.center {
+    display: block;
+    width: 30%;
+    border-radius: 8px;
+    border: 10px white;
+}
+
+
+/* Took from CSS Styling Website /*
