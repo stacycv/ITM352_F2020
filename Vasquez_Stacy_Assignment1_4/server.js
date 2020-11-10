@@ -32,7 +32,8 @@ app.post("/process_purchase", function(request, response) {
         if (validQuantities && hasQuantities) {
             response.redirect("./invoice.html?" + stringify); // invoice.html + data entered
         } else {
-            response.redirect("./products_display.html?" + stringify)
+            response.redirect("./invoice.html?" + stringify)
+            document.write('Please enter valid quantity to continue to checkout.')
         }
     }
 });
