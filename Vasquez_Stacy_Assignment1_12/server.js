@@ -33,7 +33,6 @@ app.post("/process_purchase", function(request, response) {
             response.redirect("./invoice.html?" + stringify); // invoice.html + data entered
         } else {
             response.redirect("./invoice.html?" + stringify)
-            document.write('Please enter valid quantity to continue to checkout.')
         }
     }
 });
@@ -48,3 +47,5 @@ function isNonNegInt(q, returnErrors = false) { //changed name to have more mean
 }
 app.use(express.static('./public')); // makes a static server using express from the public
 app.listen(8080, () => console.log(`listen on port 8080`))
+
+// referenced from multiple idividuals in class, screencast, lab 13, and used ricks recommendation when looking over
