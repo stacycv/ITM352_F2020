@@ -3,7 +3,7 @@
         background-image: url(./images/slide2.jpg);
         background-position: bottom;
         background-size: cover;
-        font-size: 40px;
+        font-size: 20px;
         text-align: center;
     }
     
@@ -11,7 +11,7 @@
         font-family: 'Stan', serif;
         text-align: center;
         /* Title Page */
-        font-size: 30px;
+        font-size: 50px;
         color: white;
         /* took from product_style.css layout */
     }
