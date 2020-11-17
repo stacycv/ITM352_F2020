@@ -72,7 +72,7 @@ app.post("/process_purchase", function(request, response) {
         console.log("User name from form=" + user_name_from_form);
         if (typeof user_data[user_name_from_form] != undefined) { // checks if exists
             response.send(`<H3> User ${POST["username"]} logged in`);
-
+            // this is super confusing but basically u copied from lab 14 and started moving things aeround. your login page and reg page is good but like theyre not connected to echother so connect through server and ur done also u  edited the min pass length but that still should be fiddled with bc u didnt do that on server
         } else {
             response.send(`Sorry Charlie!`);
         }

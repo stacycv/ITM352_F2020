@@ -10,8 +10,8 @@
         "email": "kazman@hawaii.edu"
     },
     "itm352": {
-        "name": "ITM352",
-        "password": "grader1",
+        "name": "itm352",
+        "password": "grader",
         "email": "itm352@hawaii.edu"
     }
 }
