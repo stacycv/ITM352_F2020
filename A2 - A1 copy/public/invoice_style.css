@@ -1,53 +1,61 @@
-    html {
-        font-family: 'Stan', serif;
-        background-image: url(./images/slide2.jpg);
-        background-position: cover;
-        background-size: cover;
-        font-size: 20px;
-        text-align: center;
-    }
-    
-    h1 {
-        font-family: 'Stan', serif;
-        text-align: center;
-        /* Title Page */
-        font-size: 50px;
-        color: white;
-        /* took from product_style.css layout */
-    }
-    
-    h4 {
-        font-size: 20px;
-        color: whitesmoke;
-    }
-    /* w3 schools layout below*/
-    
-    table {
-        position: center;
-        border-collapse: separate;
-        border-spacing: 0;
-        margin-bottom: 20px;
-        font-family: 'Stan', serif;
-    }
-    /*display an alternating color for the table*/
-    
-    table tr:nth-child(2n-1) td {
-        background: rgb(219, 238, 255);
-    }
-    /*format the individual table cells*/
-    
-    table td {
-        text-align: center;
-        background-color: whitesmoke;
-        padding: 20px;
-        font-size: 14px;
-    }
-    /*formatting the table headings*/
-    
-    table th {
-        padding: 5px 20px;
-        background-color: white;
-        color: black;
-        border-bottom: 1px solid whitesmoke;
-        font-size: 16px;
-    }
+html {
+    font-family: 'Stan', serif;
+    background-image: url(./images/slide2.jpg);
+    background-position: cover;
+    background-size: cover;
+    font-size: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Stan', serif;
+    text-align: center;
+    /* Title Page */
+    font-size: 50px;
+    color: white;
+    /* took from product_style.css layout */
+}
+
+h4 {
+    font-size: 20px;
+    color: whitesmoke;
+}
+
+
+/* w3 schools layout below*/
+
+table {
+    position: center;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
+    font-family: 'Stan', serif;
+}
+
+
+/*display an alternating color for the table*/
+
+table tr:nth-child(2n-1) td {
+    background: rgb(219, 238, 255);
+}
+
+
+/*format the individual table cells*/
+
+table td {
+    text-align: center;
+    background-color: whitesmoke;
+    padding: 20px;
+    font-size: 14px;
+}
+
+
+/*formatting the table headings*/
+
+table th {
+    padding: 5px 20px;
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid whitesmoke;
+    font-size: 16px;
+}
