@@ -22,6 +22,34 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    .topnav {
+        overflow: hidden;
+        background-color: rgb(252, 252, 207);
+        /* changed nav bar to match reg/login page */
+    }
+    
+    .topnav a {
+        float: left;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+    /* Changes color on hover*/
+    
+    .topnav a:hover {
+        background-color: rgb(252, 252, 207);
+        color: black;
+    }
+</style>
+<div class="topnav">
+    <a class="active" href="./index.html">Home</a>
+    <a href="./products_display.html">Products</a>
+    <a href="./invoice.html">Cart</a>
+
+</div>
 
 <head>
     <meta charset="UTF-8">
@@ -40,13 +68,6 @@
     <header>
         <h1>True Empress Essentials</h1>
     </header>
-    <!--navbar-->
-    <ul>
-        <li><a class="home page" href="./index.html">Home Page</a></li>
-        <li><a class='products' href="./products_display.html">Products</a></li>
-        <li><a class="active" href="./invoice.html">Cart</a></li>
-    </ul>
-    <br>
 
     <!--invoice table-->
     <table border="3">
