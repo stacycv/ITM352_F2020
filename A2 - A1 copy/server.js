@@ -50,7 +50,7 @@ app.post("/process_purchase", function(request, response) {
         exit();
     }
 
-    app.get("/login", function(request, response) {
+    app.get("/process_login", function(request, response) {
         // Give a simple login form
         str = `
 <body>
@@ -64,20 +64,21 @@ app.post("/process_purchase", function(request, response) {
         response.send(str);
     });
 
-    app.post("/login", function(request, response) {
+    app.post("/process_login", function(request, response) {
         // Process login form POST and redirect to logged in page if ok, back to login page if not
         console.log("Got a POST login request");
         POST = request.body;
         user_name_from_form = POST["username"];
         console.log("User name from form=" + user_name_from_form);
-        if (user_data[user_name_from_form] != undefined) {
+        if (typeof user_data[user_name_from_form] != undefined) { // checks if exists
             response.send(`<H3> User ${POST["username"]} logged in`);
+
         } else {
             response.send(`Sorry Charlie!`);
         }
     });
 
-    app.get("/register", function(request, response) {
+    app.get("/process_registraion", function(request, response) {
         // Give a simple register form
         str = `
 <body>
@@ -93,7 +94,7 @@ app.post("/process_purchase", function(request, response) {
         response.send(str);
     });
 
-    app.post("/register", function(request, response) {
+    app.post("/process_registration", function(request, response) {
         // process a simple register form
         POST = request.body;
         console.log("Got register POST");
