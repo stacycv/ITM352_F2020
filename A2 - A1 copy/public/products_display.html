@@ -54,25 +54,66 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>TRUE Empress Essentials</title>
-    <link href="products_style.css" rel="stylesheet">
-</head>
+    <style>
+        .topnav {
+            overflow: hidden;
+            background-color: rgb(252, 252, 207);
+            /* changed nav bar to match reg/login page */
+        }
+        
+        .topnav a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        /* Changes color on hover*/
+        
+        .topnav a:hover {
+            background-color: rgb(252, 252, 207);
+            color: black;
+        }
+        /* adding nav barr to match reg/login page */
+    </style>
+    <div class="topnav">
+        <a class="active" href="./index.html">Home</a>
+        <a href="./products_display.html">Products</a>
 
-<body>
-    <form name="product_form" action="process_purchase" method="POST">
-        <header>
-            <h1>TRUE Empress Essentials</h1>
-            <link href="products_style.css" rel="stylesheet">
-        </header>
-        <div class="productsbox">
-        </div>
-        <div>
-            <main>
-                <script>
-                    //all referenced from assignment 1 screencast
-                    for (i = 0; i < products.length; i++) {
-                        document.write(`
+    </div>
+
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Checkout page</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sans">
+        <link href="invoice_style.css" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Sans', serif;
+            }
+        </style>
+        <meta charset="utf-8">
+        <title>TRUE Empress Essentials</title>
+        <link href="products_style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <form name="product_form" action="process_purchase" method="POST">
+            <header>
+                <h1>TRUE Empress Essentials</h1>
+                <link href="products_style.css" rel="stylesheet">
+            </header>
+            <div class="productsbox">
+            </div>
+            <div>
+                <main>
+                    <script>
+                        //all referenced from assignment 1 screencast
+                        for (i = 0; i < products.length; i++) {
+                            document.write(`
                                 <section class="item">
                                     <h2>${products[i].name}</h2>
                                     <br><img src="${products[i].image}">
@@ -83,12 +124,12 @@
                 
                                 </section>
                             `);
-                    }
-                </script>
-            </main>
-        </div>
-        <footer>
-            <input type="submit" value="Submit Purchase" name="submitPurchase">
-        </footer>
-    </form>
-</body>
+                        }
+                    </script>
+                </main>
+            </div>
+            <footer>
+                <input type="submit" value="Submit Purchase" name="submitPurchase">
+            </footer>
+        </form>
+    </body>
