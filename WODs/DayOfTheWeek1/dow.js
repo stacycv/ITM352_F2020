@@ -1,0 +1,1 @@
+console.log('the day of the week');
