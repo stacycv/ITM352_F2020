@@ -13,6 +13,7 @@ app.all('*', function(request, response, next) {
     next();
 });
 
+
 app.use(myParser.urlencoded({ extended: true })); //get data in the body
 //to process the response from what is typed in the form
 
