@@ -14,7 +14,7 @@
         }
 
     } else {
-        (document.write('<font color="red">No form was submitted! Click products to submit form</font>')); //respondes thay you need a form
+        (document.write('<font color="red">No form was submitted! Click products to submit form</font>')); //respondes that you need a form
 
     }
     console.log(quantities);
@@ -80,7 +80,9 @@
                 var tax = tax_rate * subtotal;
 
                 // Compute shipping
-                if (subtotal <= 50) {
+                if (subtotal == 0) {
+                    shipping = 0; // adding line to make shipping 0 if nothing ordered
+                } else if (subtotal <= 50) {
                     shipping = 2;
                 } else if (subtotal <= 100) {
                     shipping = 5;

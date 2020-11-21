@@ -67,31 +67,28 @@ app.post("/process_registration", function(req, res) {
     if (req.body.name == "") {
         errors.push('Invalid Full Name');
     }
-    // length of full name is less than 30
-    if ((req.body.fullname.length > 30)) {
-        errors.push('Full Name Too Long')
-    }
-    // length of full name is between 0 and 25 
-    if ((req.body.fullname.length > 25 && req.body.fullname.length < 0)) {
-        errors.push('Full Name Too Long')
+
+    // length of full name is between 0 and 30 
+    if ((req.body.fullname.length > 30 && req.body.fullname.length < 0)) {
+        errors.push('Full name must be less than 30 characters')
     }
 
     var reguser = req.body.username.toLowerCase();
     if (typeof users_reg_data[reguser] != 'undefined') {
-        errors.push('Username taken')
+        errors.push('Sorry! Username has been taken')
     }
 
     if (/^[0-9a-zA-Z]+$/.test(req.body.username)) {} else {
-        errors.push('Letters And Numbers Only for Username')
+        errors.push('Letters & numbers only')
     }
 
     //password is min 8 characters long 
     if ((req.body.password.length < 8 && req.body.username.length > 20)) {
-        errors.push('Password Too Short')
+        errors.push('Password must be 8-20 characters')
     }
     // check to see if passwords match
     if (req.body.password !== req.body.repeat_password) {
-        errors.push('Password Not a Match')
+        errors.push('Password do not match')
     }
 
     if (errors.length == 0) {
