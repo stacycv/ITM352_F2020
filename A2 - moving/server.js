@@ -28,19 +28,36 @@ if (fs.existsSync(filename)) {
 } else {
     console.log(filename + 'does not exist!');
 }
-app.post("/process_login", function(req, res) { //referenced from https://github.com/shelahcruz
+app.post("/process_login", function(request, response) {
+    // Process login form POST and redirect to logged in page if ok, back to login page if not
+    console.log(request.body.password);
+    // checks if the user exists; if they exist, get the password
+    if (typeof user_reg_data[request.body['username'].toLowerCase()] != 'undefined') {
+        userdata = user_reg_data[request.body['username'].toLowerCase()];
+        console.log(userdata)
+        if (request.body['password'] == userdata.password) {
+            response.redirect('/invoice.html?' + queryString.stringify(req.query));
+        } else {
+            response.redirect('./loginPage.html?' + queryString.stringify(req.query));
+        }
+    } else {
+        response.send(` ${request.body['username']} does not exist.`);
+    }
+});
+
+/*
+    //OG LOGIN PROCESS
     var LogError = [];
     console.log(req.query);
     the_username = req.body.username.toLowerCase();
-    if (typeof users_reg_data[the_username] != 'undefined') {
-        //Asking object if it has matching username, if it doesnt itll be undefined.
+    if (typeof users_reg_data[the_username] != 'undefined') { //checking if exists
         if (users_reg_data[the_username].password == req.body.password) {
             req.query.username = the_username;
             console.log(users_reg_data[req.query.username].name);
             req.query.name = users_reg_data[req.query.username].name
             res.redirect('/invoice.html?' + queryString.stringify(req.query));
             return;
-            //Redirect them to invoice here if they logged in correctly//
+            // redirect them to invoice here if they logged in correctly
         } else {
             LogError.push = ('Invalid Password');
             console.log(LogError);
@@ -55,21 +72,22 @@ app.post("/process_login", function(req, res) { //referenced from https://github
         req.query.LogError = LogError.join(';');
     }
     res.redirect('./loginPage.html?' + queryString.stringify(req.query));
-});
+}); */
 
 
 app.post("/process_registration", function(request, response) { //referenced https://github.com/alvinalmira
+    //retrieves user data
     username = request.body.username.toLowerCase();
     user_reg_data[username] = {};
     user_reg_data[username].name = request.body.name;
     user_reg_data[username].password = request.body.password;
     user_reg_data[username].email = request.body.email.toLowerCase();
-
+    //adding to json
     if (request.body.password == request.body.repeat_password) {
 
         reg_info_str = JSON.stringify(user_reg_data);
         fs.writeFileSync(user_data_info, reg_info_str);
-
+        //redirect if valid
         response.redirect('/invoice.html?' + queryString.stringify(require.query))
     }
 }); // added registration
