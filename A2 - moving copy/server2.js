@@ -29,7 +29,6 @@ if (fs.existsSync(filename)) {
     console.log(filename + 'does not exist!');
 }
 app.post("/process_login", function(request, response) {
-    /*
     // Process login form POST and redirect to logged in page if ok, back to login page if not
     console.log(request.body.password);
     // checks if the user exists; if they exist, get the password
@@ -44,9 +43,9 @@ app.post("/process_login", function(request, response) {
     } else {
         response.send(` ${request.body['username']} does not exist.`);
     }
-});  */
+});
 
-
+/*
     //OG LOGIN PROCESS
     var LogError = [];
     console.log(req.query);
@@ -73,20 +72,20 @@ app.post("/process_login", function(request, response) {
         req.query.LogError = LogError.join(';');
     }
     res.redirect('./loginPage.html?' + queryString.stringify(req.query));
-});
+}); */
 
 
 app.post("/process_registration", function(request, response) { //referenced https://github.com/alvinalmira
     //retrieves user data
     username = request.body.username.toLowerCase();
-    user_data[username] = {};
-    user_data[username].name = request.body.name;
-    user_data[username].password = request.body.password;
-    user_data[username].email = request.body.email.toLowerCase();
+    user_reg_data[username] = {};
+    user_reg_data[username].name = request.body.name;
+    user_reg_data[username].password = request.body.password;
+    user_reg_data[username].email = request.body.email.toLowerCase();
     //adding to json
     if (request.body.password == request.body.repeat_password) {
 
-        reg_info_str = JSON.stringify(user_data);
+        reg_info_str = JSON.stringify(user_reg_data);
         fs.writeFileSync(user_data_info, reg_info_str);
         //redirect if valid
         response.redirect('/invoice.html?' + queryString.stringify(require.query))
