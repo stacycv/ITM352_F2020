@@ -26,31 +26,31 @@ if (fs.existsSync(filename)) {
     console.log(filename + 'does not exist! Please enter valid user login to proceed');
 }
 
-app.post("/process_login", function(request, response) {
-    POST = request.body
-    RQ = request.query;
-    console.log(RQ);
-    the_username = POST.username.toLowerCase(); //making username case insensititve
+app.post("/process_login", function(request, respond) { //referenced melanie yang
+    var LogError = [];
+    let POST = request.query;
+    console.log(POST);
+    the_username = request.body.username.toLowerCase(); //making username case insensititve
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
-        if (users_reg_data[the_username].password == POST.password) {
-            RQ.username = the_username;
-            console.log(users_reg_data[RQ.username].name);
-            RQ.name = users_reg_data[RQ.username].name
-            response.redirect('/invoice.html?' + queryString.stringify(request.query));
+        if (users_reg_data[the_username].password == request.body.password) {
+            POST.username = the_username;
+            console.log(users_reg_data[POST.username].name);
+            POST.name = users_reg_data[POST.username].name
+            respond.redirect('/invoice.html?' + queryString.stringify(request.query));
             return; //redirect to the invoice if valid
-        } else {
-            response.send(`The password entered is not valid for the following username</br>
-           <b> username:</b> <font color="red">${POST['username']} </font></br>
-           <b> password:</b> <font color="red">${POST['password']} </font></br>
-           </br>
-            Please go back and enter a valid login to proceed!`);
+        } else { //if password is not entered correctly tell console
+            LogError.push = ('invalid password');
+            console.log(LogError);
+            POST.username = the_username;
+            POST.name = users_reg_data[the_username].name;
+            POST.LogError = LogError.join(';');
         }
-    } else {
-        response.send(`One or more of values entered are not valid </br>
-    <b> username:</b> <font color="red">${POST['username']} </font> </br>
-    <b> password:</b> <font color="red">${POST['password']} </font> </br>
-    </br>
-    Please go back and enter a valid login to proceed!`); // letting the user know what they entered is incorrect 
+    } else { //if username is incorrect tell console
+        POST.username = the_username;
+        response.send(`The following values entered are not valid </br>
+    username: ${POST['username']} </br>
+    password: ${POST['password']} </br>
+    Please go back and enter a valid login to proceed`); // letting the user know what they entered is incorrect 
     }
 });
 
@@ -139,4 +139,4 @@ app.use(express.static('./public')); // makes a static server using express from
 app.listen(8080, () => console.log(`listen on port 8080`))
 
 // A1 - referenced from multiple individuals in class, assign 1 screencast, lab 13, and used ricks recommendation when looking over
-// A2 - referenced Sharon Diep for console logs @
+// A2 - referenced melanie yang for console logs
