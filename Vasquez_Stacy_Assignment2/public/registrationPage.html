@@ -106,7 +106,8 @@
                 if (password == repeat_password) //if passwords match
                     document.getElementbyID("registration").submit(); //process registration POST
                 else { //if they do not match
-                    alert("Passwords do not match"); //send an alert that they dont match
+                    alert("Passwords do not match!"); //send an alert that they dont match
+
                 }
             }
 
@@ -117,10 +118,10 @@
 
             <div class="registration">
                 <div class="name">
-                    <input type="text" placeholder="First & Last Name" minlength="1" maxlength="30" name="name" required />
+                    <input type="text" placeholder="First & Last Name" minlength="4" maxlength="30" name="name" required />
                 </div>
                 <div class="username">
-                    <input type="text" placeholder="Username" minlength="4" maxlength="15" name="username" required />
+                    <input type="text" placeholder="Username" minlength="8" maxlength="20" name="username" required />
                 </div>
 
                 <div class="email">

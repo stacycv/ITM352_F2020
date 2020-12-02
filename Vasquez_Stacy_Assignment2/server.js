@@ -88,10 +88,12 @@ app.post("/process_registration", function(request, response) {
     }
     // checking if passwords match
     if (POST.password !== POST.repeat_password) { //if it doesnt match previously entered password
-        console.log('passwords do not match'); //log saying they need to match
+        console.log('Passssswords do not match');
+        response.redirect('registrationPage.html?' + queryString.stringify(POST))
+
     }
     // if no errors go to invoice
-    if (errors.length == 0) {
+    if (errors == 0) {
         console.log('No errors found. Valid log-in');
         RQ.username = reguser;
         RQ.name = POST.name;
@@ -99,7 +101,7 @@ app.post("/process_registration", function(request, response) {
 
     }
     // reloading page if errors
-    if (errors.length > 0) { // if errors then
+    if (errors > 0) { // if errors then
         console.log(errors) //send information
         RQ.name = POST.name;
         RQ.username = POST.username;
@@ -107,28 +109,28 @@ app.post("/process_registration", function(request, response) {
         RQ.repeat_password = POST.repeat_password;
         RQ.email = POST.email;
 
-        RQ.errors = errors.join('; '); //if multiple errors, list them next to eachother
-        response.redirect('registrationPage.html?' + queryString.stringify(RQ)) //keep reloading page until corrected
+        RQ.errors = errors.join(' ; '); //if multiple errors, list them next to eachother
+        response.redirect('/registrationPage.html?' + queryString.stringify(POST)) //keep reloading page until corrected
     }
 }); // added registration
 
 app.post("/process_purchase", function(request, response) {
-    RQ = request.body;
+    POST = request.body;
 
-    if (typeof RQ['submitPurchase'] != 'undefined') {
+    if (typeof POST['submitPurchase'] != 'undefined') {
         var validQuantities = true; // creating a variable assuming that it'll be true
         var hasQuantities = false
         for (i = 0; i < products.length; i++) {
-            qty = RQ[`quantity${i}`];
+            qty = POST[`quantity${i}`];
             hasQuantities = validQuantities || qty > 0; // allowed if > than 0
             validQuantities = hasQuantities && isNonNegInt(qty);
         }
         // if all quant are valid go to invoice
-        const stringify = queryString.stringify(RQ);
+        const stringify = queryString.stringify(POST);
         if (validQuantities && hasQuantities) {
             response.redirect("./loginPage.html?" + stringify); // following A2 reqs must sign in before purchase + data entered
         } else {
-            response.redirect("./products_display.html?" + queryString.stringify(RQ)); // reload until corrected and alert will show up
+            response.redirect("./products_display.html?" + queryString.stringify(POST)); // reload until corrected and alert will show up
         }
     }
 });
