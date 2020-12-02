@@ -1,4 +1,9 @@
-// referenced from assignment 1 scrreencast and lab 13
+/*
+Stacy Vasquez's Assignment 2 server 12/1/2020
+A1 - referenced from multiple individuals in class, assign 1 screencast, lab 13, and used ricks recommendation when looking over
+A2 - copied Stacy Vasquez's A1, referenced Sharon Diep for console logs
+The purpose of the server is to connect and process the information throughout my e-commerce website TRUE-Empress
+*/
 var data = require('./public/products_data.js'); //must have data from product_data.js
 var products = data.products;
 const queryString = require('query-string'); // so it'll load querystring
@@ -21,14 +26,14 @@ if (fs.existsSync(filename)) {
     stats = fs.statSync(filename) //gets stats from file
 
     data = fs.readFileSync(filename, 'utf-8');
-    users_reg_data = JSON.parse(data);
-} else {
+    users_reg_data = JSON.parse(data); //pulling data from JSON
+} else { //if no matching filename, error message will appear in console
     console.log(filename + 'does not exist! Please enter valid user login to proceed');
 }
 
-app.post("/process_login", function(request, response) {
-    POST = request.body
-    RQ = request.query;
+app.post("/process_login", function(request, response) { // process login from POST and redirect to invoice if matches correctly
+    POST = request.body; //nicer to look at when writing strings
+    RQ = request.query; //nicer to look at when writing strings
     console.log(RQ);
     the_username = POST.username.toLowerCase(); //making username case insensititve
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
@@ -36,16 +41,16 @@ app.post("/process_login", function(request, response) {
             RQ.username = the_username;
             console.log(users_reg_data[RQ.username].name);
             RQ.name = users_reg_data[RQ.username].name
-            response.redirect('/invoice.html?' + queryString.stringify(request.query));
+            response.redirect('/invoice.html?' + queryString.stringify(RQ));
             return; //redirect to the invoice if valid
-        } else {
-            response.send(`The password entered is not valid for the following username</br>
+        } else { //letting them know exactly whats wrong with the information entered (username is listed in this one because it is existant)
+            response.send(`The password entered is not valid for the following username</br> 
            <b> username:</b> <font color="red">${POST['username']} </font></br>
            <b> password:</b> <font color="red">${POST['password']} </font></br>
            </br>
             Please go back and enter a valid login to proceed!`);
         }
-    } else {
+    } else { //letting them know exactly whats wrong with the information entered (username is NOT listed in this one because it is NONexistant)
         response.send(`One or more of values entered are not valid </br>
     <b> username:</b> <font color="red">${POST['username']} </font> </br>
     <b> password:</b> <font color="red">${POST['password']} </font> </br>
@@ -56,34 +61,34 @@ app.post("/process_login", function(request, response) {
 
 
 app.post("/process_registration", function(request, response) {
-    POST = request.body;
-    RQ = request.query;
-    console.log(POST);
-    var errors = [];
+    POST = request.body; //easier and faster to write, plus matches throughout the server
+    RQ = request.query; //easier and fast to write, plus matches throughout the server
+    console.log(POST); //logging the requested body
+    var errors = []; //to reference errors
     // errors below will tell the console what is invalid. The user will see it up front via registrationPage.html
-    if (/[A-Za-z]+$/.test(POST.name)) {} else {
-        console.log('name must be letters only')
+    if (/[A-Za-z]+$/.test(POST.name)) {} else { //if it does not match, console will read..
+        console.log('name must be letters only') //letting them know only letters are allowed
     }
     // validate name
-    if (POST.name == "") {
-        console.log('fullname invalid');
+    if (POST.name == "") { //if nothing entered for name
+        console.log('fullname invalid'); //log full name is invalid
     }
     // checking if username is taken
     var reguser = POST.username.toLowerCase(); // case insensitive
-    if (typeof users_reg_data[reguser] != 'undefined') {
-        console.log('username already taken');
+    if (typeof users_reg_data[reguser] != 'undefined') { //if username is already defined..
+        console.log('username already taken'); //log its already taken
     }
     // only letters and numbers in username
-    if (/[0-9a-zA-Z]+$/.test(POST.username)) {} else {
-        console.log('no special characters allowed in username');
+    if (/[0-9a-zA-Z]+$/.test(POST.username)) {} else { //if the username has special characters
+        console.log('no special characters allowed in username'); //log no special charaters are allowed
     }
     // password is min 8 characters
-    if ((POST.password.length < 8 && POST.username.length > 20)) {
-        console.log('password too short');
+    if ((POST.password.length < 8 && POST.username.length > 20)) { //if passwork is not inbetween 8-20 characters
+        console.log('password must be 8-20 characters'); //log password must be between 8-20 characters
     }
     // checking if passwords match
-    if (POST.password !== POST.repeat_password) {
-        console.log('passwords do not match');
+    if (POST.password !== POST.repeat_password) { //if it doesnt match previously entered password
+        console.log('passwords do not match'); //log saying they need to match
     }
     // if no errors go to invoice
     if (errors.length == 0) {
@@ -91,18 +96,19 @@ app.post("/process_registration", function(request, response) {
         RQ.username = reguser;
         RQ.name = POST.name;
         response.redirect('/invoice.html?' + queryString.stringify(RQ))
+
     }
     // reloading page if errors
-    if (errors.length > 0) {
-        console.log(errors)
+    if (errors.length > 0) { // if errors then
+        console.log(errors) //send information
         RQ.name = POST.name;
         RQ.username = POST.username;
         RQ.password = POST.password;
         RQ.repeat_password = POST.repeat_password;
         RQ.email = POST.email;
 
-        RQ.errors = errors.join(';');
-        response.redirect('registrationPage.html?' + queryString.stringify(RQ))
+        RQ.errors = errors.join('; '); //if multiple errors, list them next to eachother
+        response.redirect('registrationPage.html?' + queryString.stringify(RQ)) //keep reloading page until corrected
     }
 }); // added registration
 
@@ -137,6 +143,3 @@ function isNonNegInt(q, returnErrors = false) {
 }
 app.use(express.static('./public')); // makes a static server using express from the public
 app.listen(8080, () => console.log(`listen on port 8080`))
-
-// A1 - referenced from multiple individuals in class, assign 1 screencast, lab 13, and used ricks recommendation when looking over
-// A2 - referenced Sharon Diep for console logs @

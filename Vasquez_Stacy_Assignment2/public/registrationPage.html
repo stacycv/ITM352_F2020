@@ -1,3 +1,10 @@
+<!--
+    Stacy Vasquez's Assignment 2 registration page 12/1/2020
+    A2 - new! 
+    Referenced code from Alvin Almura, sytle took from W3 schools, 
+    The purpose is to have the registration  page look similar to the other pages to give a cohesive feel throughout the e-commerce website and allow users who do not yet have a log in to make one and become a returning user!
+    -->
+
 <html lang="en">
 
 <head>
@@ -93,13 +100,13 @@
             registration.action += document.location.search;
             //NEW CODE BEING ADDED REFERENCED FROM ALVIN-->
 
-            function validate() {
-                let password = document.getElementById("password").value;
-                let repeat_password = document.getElementById("repeat_password").value;
-                if (password == repeat_password)
-                    document.getElementbyID("registration").submit();
-                else {
-                    alert("Passwords do not match");
+            function validate() { //function validate their passwords upon submission
+                let password = document.getElementById("password").value; //setting variables
+                let repeat_password = document.getElementById("repeat_password").value; //setting variables
+                if (password == repeat_password) //if passwords match
+                    document.getElementbyID("registration").submit(); //process registration POST
+                else { //if they do not match
+                    alert("Passwords do not match"); //send an alert that they dont match
                 }
             }
 
