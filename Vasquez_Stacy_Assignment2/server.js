@@ -1,7 +1,7 @@
 /*
 Stacy Vasquez's Assignment 2 server 12/1/2020
 A1 - referenced from multiple individuals in class, assign 1 screencast, lab 13, and used ricks recommendation when looking over
-A2 - copied Stacy Vasquez's A1, referenced Sharon Diep for console logs
+A2 - copied Stacy Vasquez's A1, referenced Sharon Diep for console logs, edited to fix for feedback on A2
 The purpose of the server is to connect and process the information throughout my e-commerce website TRUE-Empress
 */
 var data = require('./public/products_data.js'); //must have data from product_data.js
@@ -113,22 +113,22 @@ app.post("/process_registration", function(request, response) {
 }); // added registration
 
 app.post("/process_purchase", function(request, response) {
-    let POST = request.body;
+    RQ = request.body;
 
-    if (typeof POST['submitPurchase'] != 'undefined') {
+    if (typeof RQ['submitPurchase'] != 'undefined') {
         var validQuantities = true; // creating a variable assuming that it'll be true
         var hasQuantities = false
         for (i = 0; i < products.length; i++) {
-            qty = POST[`quantity${i}`];
+            qty = RQ[`quantity${i}`];
             hasQuantities = validQuantities || qty > 0; // allowed if > than 0
             validQuantities = hasQuantities && isNonNegInt(qty);
         }
         // if all quant are valid go to invoice
-        const stringify = queryString.stringify(POST);
+        const stringify = queryString.stringify(RQ);
         if (validQuantities && hasQuantities) {
             response.redirect("./loginPage.html?" + stringify); // following A2 reqs must sign in before purchase + data entered
         } else {
-            response.send("Uh oh, invalid quantity. Please return and enter valid quantity to continue!"); // error message
+            response.redirect("./products_display.html?" + queryString.stringify(RQ)); // reload until corrected and alert will show up
         }
     }
 });
