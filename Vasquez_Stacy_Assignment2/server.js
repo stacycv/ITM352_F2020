@@ -12,6 +12,7 @@ var fs = require('fs'); //Loading file system
 var express = require('express'); //server requires express to run
 var app = express(); // run the express function and start express
 var myParser = require("body-parser");
+const { request } = require('express');
 
 // if valid redirect to invoice, if not go order page
 app.all('*', function(request, response, next) {
@@ -89,7 +90,7 @@ app.post("/process_registration", function(request, response) {
     // checking if passwords match
     if (POST.password !== POST.repeat_password) { //if it doesnt match previously entered password
         console.log('Passssswords do not match');
-        response.redirect('registrationPage.html?' + queryString.stringify(POST))
+        response.redirect('registrationPage.html?' + queryString.stringify(POST)) //reloading page instead of heading to invoice
 
     }
     // if no errors go to invoice

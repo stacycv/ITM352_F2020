@@ -19,7 +19,9 @@ The purpose collect all the request items and let them know the calculated total
         }
 
     } else {
-        (document.write('<font color="red">No form was submitted! Click products to submit form</font>')); //respondes that you need a form
+        (alert('No form was submitted! You will now be redirected to the main page.'))
+        window.location = `./index.html${document.location.search}`; //respondes that you need a form and redirects to start page
+        window.stop;
 
     }
     console.log(quantities);

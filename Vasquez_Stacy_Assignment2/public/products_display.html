@@ -28,7 +28,7 @@ The purpose is to let the customers purchase their desired products and not let 
         let params = (new URL(document.location)).searchParams; // gets query string + form data
         // when form is submitted, check if quantities are valid then redirect to invoice 
         if (params.has('submitPurchase')) {
-            has_errors = false; // assume quantities are valid from the start
+            errs = false; // assume quantities are valid from the start
             total_qty = 0; // need to check if something was selected so we will look if the total > 0
             //For every product in the array, write the product number, display its image and name, and list price
             for (i = 0; i < products.length; i++) {
@@ -38,13 +38,13 @@ The purpose is to let the customers purchase their desired products and not let 
                     product_form[`quantity${i}`].value = a_qty;
                     total_qty += a_qty;
                     if (!isNonNegInt(a_qty)) {
-                        hasErrors = true; // invalid quantity
+                        errs = true; // invalid quantity
                         checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
                     }
                 }
             }
             // Now respond to errors or redirect to invoice if all is ok
-            if (hasErrors) {
+            if (errs) {
                 alert("Please enter only valid quantities");
             } else if (total_qty == 0) { // no quantity selections, just give a general alert
                 alert("Please select some quantities");
