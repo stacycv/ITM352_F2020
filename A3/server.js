@@ -96,8 +96,15 @@ app.post("/process_registration", function(request, response) {
     // if no errors go to invoice
     if (errors == 0) {
         console.log('No errors found. Valid log-in');
-        RQ.username = reguser;
-        RQ.name = POST.name;
+        var username = POST["username"];
+        users_reg_data[username] = {}; //make it 'userS'
+        users_reg_data[username].name = username;
+        users_reg_data[username].password = POST['password'];
+        users_reg_data[username].email = POST['email'];
+        data = JSON.stringify(users_reg_data); // change to 'userS'
+        fs.writeFileSync(filename, data, "utf-8");
+        /* RQ.username = reguser;
+        RQ.name = POST.name; */
         response.redirect('/invoice.html?' + queryString.stringify(RQ))
 
     }
@@ -109,7 +116,6 @@ app.post("/process_registration", function(request, response) {
         RQ.password = POST.password;
         RQ.repeat_password = POST.repeat_password;
         RQ.email = POST.email;
-
         RQ.errors = errors.join(' ; '); //if multiple errors, list them next to eachother
         response.redirect('/registrationPage.html?' + queryString.stringify(POST)) //keep reloading page until corrected
     }

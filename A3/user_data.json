@@ -1,12 +1,1 @@
-{
-    "itm352": {
-        "name": "itm352",
-        "password": "grader",
-        "email": "itm352@hawaii.edu"
-    },
-    "stayccv": {
-        "name": "Stacy Vasquez",
-        "password": "stayccv",
-        "email": "stacycv@hawaii.edu"
-    }
-}
+{"itm352":{"name":"itm352","password":"grader","email":"itm352@hawaii.edu"},"stayccv":{"name":"Stacy Vasquez","password":"stayccv","email":"stacycv@hawaii.edu"},"stacycvv":{"name":"stacycvv","password":"Qazwsxedc","email":"stacycv@hawaii.edu"}}
