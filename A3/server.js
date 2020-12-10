@@ -2,6 +2,7 @@
 Stacy Vasquez's Assignment 2 server 12/1/2020
 A1 - referenced from multiple individuals in class, assign 1 screencast, lab 13, and used ricks recommendation when looking over
 A2 - copied Stacy Vasquez's A1, referenced Sharon Diep for console logs, edited to fix for feedback on A2
+A3 - fixed login errors 
 The purpose of the server is to connect and process the information throughout my e-commerce website TRUE-Empress
 */
 var data = require('./public/products_data.js'); //must have data from product_data.js
@@ -93,19 +94,18 @@ app.post("/process_registration", function(request, response) {
         response.redirect('registrationPage.html?' + queryString.stringify(POST)) //reloading page instead of heading to invoice
 
     }
-    // if no errors go to invoice
+    // if no errors go to invoice 
+    // refererence tyler johnson for storing data
     if (errors == 0) {
         console.log('No errors found. Valid log-in');
         var username = POST["username"];
-        users_reg_data[username] = {}; //make it 'userS'
+        users_reg_data[username] = {};
         users_reg_data[username].name = username;
         users_reg_data[username].password = POST['password'];
         users_reg_data[username].email = POST['email'];
-        data = JSON.stringify(users_reg_data); // change to 'userS'
-        fs.writeFileSync(filename, data, "utf-8");
-        /* RQ.username = reguser;
-        RQ.name = POST.name; */
-        response.redirect('/invoice.html?' + queryString.stringify(RQ))
+        data = JSON.stringify(users_reg_data); // making varible 
+        fs.writeFileSync(filename, data, "utf-8"); // adding to JSON
+        response.redirect('/invoice.html?' + queryString.stringify(RQ)) //redirecting to invoice if correct
 
     }
     // reloading page if errors
