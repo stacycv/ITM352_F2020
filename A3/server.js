@@ -95,7 +95,7 @@ app.post("/process_registration", function(request, response) {
 
     }
     // if no errors go to invoice 
-    // refererence tyler johnson for storing data
+    // reference from lab 15
     if (errors == 0) {
         console.log('No errors found. Valid log-in');
         var fullname = POST["name"];
