@@ -1,5 +1,5 @@
 /*<!--
-Stacy Vasquez's Assignment 2 products data page 12/1/2020
+Stacy Vasquez's Assignment 2 products data page 12/15/2020
 A1 - all images included are findings from random google searches, array was used from Assign 1 page that said to reference SPP3
 A2 - copied Stacy Vasquez's A1
 The purpose of the products data is to list the price, images and names of the products that the e-commerce site has avaliable for purchase

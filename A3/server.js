@@ -1,5 +1,5 @@
 /*
-Stacy Vasquez's Assignment 2 server 12/1/2020
+Stacy Vasquez's Assignment 2 server 12/15/2020
 A1 - referenced from multiple individuals in class, assign 1 screencast, lab 13, and used ricks recommendation when looking over
 A2 - copied Stacy Vasquez's A1, referenced Sharon Diep for console logs, edited to fix for feedback on A2
 A3 - fixed login errors 
