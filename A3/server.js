@@ -98,11 +98,11 @@ app.post("/process_registration", function(request, response) {
     // refererence tyler johnson for storing data
     if (errors == 0) {
         console.log('No errors found. Valid log-in');
-        var username = POST["username"];
-        users_reg_data[username] = {};
-        users_reg_data[username].name = username;
-        users_reg_data[username].password = POST['password'];
-        users_reg_data[username].email = POST['email'];
+        var fullname = POST["name"];
+        users_reg_data[fullname] = {}; // saving fullname as array name
+        users_reg_data[fullname].name = POST["username"];
+        users_reg_data[fullname].password = POST['password'];
+        users_reg_data[fullname].email = POST['email'];
         data = JSON.stringify(users_reg_data); // making varible 
         fs.writeFileSync(filename, data, "utf-8"); // adding to JSON
         response.redirect('/invoice.html?' + queryString.stringify(RQ)) //redirecting to invoice if correct
