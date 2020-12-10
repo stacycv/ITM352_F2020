@@ -1,0 +1,68 @@
+/*
+Stacy Vasquez's Assignment 2 invoice style page 12/1/2020
+A1 - made edits to the invoice provided over class
+A2 - copied Stacy Vasquez's A1
+The purpose of the invoice style is to make it pleasing to the consumer eye but still match the overall design of the e-commerce website 
+*/
+
+html {
+    font-family: 'Stan', serif;
+    background-image: url(./images/slide2.jpg);
+    background-position: bottom;
+    background-size: cover;
+    font-size: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Stan', serif;
+    text-align: center;
+    /* Title Page */
+    font-size: 50px;
+    color: white;
+    /* took from product_style.css layout */
+}
+
+h4 {
+    font-size: 20px;
+    color: white;
+}
+
+
+/* w3 schools layout below*/
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px;
+    font-family: 'Stan', serif;
+}
+
+
+/*display an alternating color for the table*/
+
+table tr:nth-child(2n-1) td {
+    background: rgb(252, 252, 207);
+}
+
+
+/*format the individual table cells*/
+
+table td {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    font-size: 14px;
+}
+
+
+/*formatting the table headings*/
+
+table th {
+    padding: 5px 20px;
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #C1CED9;
+    font-size: 16px;
+}

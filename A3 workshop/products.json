@@ -1,0 +1,80 @@
+{
+    "Oils": [
+
+        {
+            "name": "Oil",
+            "price": 75.00,
+            "image": "./images/massageOilA1.jpg"
+        },
+
+        {
+            "name": "Roller",
+            "price": 75.00,
+            "image": "./images/massageRollerA1.jpg"
+        },
+
+        {
+            "name": "Balms",
+            "price": 125.00,
+            "image": "./images/massageBalmsA1.jpg"
+        }
+    ],
+    "Candles": [
+
+        {
+            "name": "Oil",
+            "price": 75.00,
+            "image": "./images/massageOilA1.jpg"
+        },
+        {
+            "name": "Roller",
+            "price": 75.00,
+            "image": "./images/massageOilA1.jpg"
+
+        },
+        {
+            "name": "Balms",
+            "price": 125.00,
+            "image": "./images/massageBalmsA1.jpg"
+        }
+
+    ],
+    "Balms": [
+
+        {
+            "name": "Oil",
+            "price": 75.00,
+            "image": "./images/massageOilA1.jpg"
+        },
+        {
+            "name": "Roller",
+            "price": 75.00,
+            "image": "./images/massageOilA1.jpg"
+
+        },
+        {
+            "name": "Balms",
+            "price": 125.00,
+            "image": "./images/massageBalmsA1.jpg"
+        }
+    ],
+    "Rollers": [
+
+        {
+            "name": "Oil",
+            "price": 75.00,
+            "image": "./images/massageOilA1.jpg"
+        },
+        {
+            "name": "Roller",
+            "price": 75.00,
+            "image": "./images/massageOilA1.jpg"
+
+        },
+        {
+            "name": "Balms",
+            "price": 125.00,
+            "image": "./images/massageBalmsA1.jpg"
+        }
+    ]
+}
