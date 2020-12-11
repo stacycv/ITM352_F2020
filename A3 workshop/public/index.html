@@ -1,0 +1,26 @@
+<head>
+    <script src="./functions.js"></script>
+    <script>
+        var products_data;
+        loadJSON('get_products_data', function(response) {
+            // Parsing JSON string into object
+            products_data = JSON.parse(response); //storing the data
+        });
+        var this_product_key = ''
+    </script>
+</head>
+
+<body>
+    Go to: <br>
+    <ul>
+        <script>
+            for (products_key in products_data) {
+                document.write(`<li>
+                <a href='./display_products.html?products_key=${products_key}'
+                >${products_key}<a><li>`); //creaating a bunch of hyperlinks 
+            }
+        </script>
+    </ul>
+</body>
+
+</html>
