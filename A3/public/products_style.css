@@ -25,13 +25,14 @@ h1 {
 
 h2 {
     font-family: 'Stan', serif;
-    text-align: center;
+    text-align: grid;
     /* Product Names */
     font-size: 30px;
 }
 
 main {
-    display: -webkit-inline-box;
+    display: grid;
+    position: center;
     color: black;
     font-family: 'Stan', serif;
 }
