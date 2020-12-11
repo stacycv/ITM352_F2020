@@ -4,8 +4,18 @@ A1 - referenced A1 examples and screencast
 A2 - copied Stacy Vasquez's A1
 The purpose is to let the customers purchase their desired products and not let them continue if an invalid quantity is entered
 -->
-<script src="./products_data.json" type="text/javascript">
+<script src="./products_data.js" type="text/javascript">
     // links array
+    // get the query string
+    //added in from workshop
+    let params = (new URL(document.location)).searchParams;
+    if (params.has('products_key')) {
+        var this_product_key = params.get('products_key');
+    } else {
+        document.write('no products key in query string');
+        document.stop;
+    }
+    //end of code added from workshop
 </script>
 <script>
     //Referenced from assignment 1 examples
@@ -59,42 +69,40 @@ The purpose is to let the customers purchase their desired products and not let 
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <title>TRUE Empress Essentials</title>
-    <link href="products_style.css" rel="stylesheet">
-</head>
 
 <body>
     <form name="product_form" action="process_purchase" method="POST">
-        <header>
-            <h1>TRUE Empress Essentials</h1>
-            <link href="products_style.css" rel="stylesheet">
-        </header>
-        <div class="productsbox">
-        </div>
-        <div>
-            <main>
-                <script>
-                    //all referenced from assignment 1 screencast
-                    for (i = 0; i < products.length; i++) {
-                        document.write(`
-                                <section class="item">
-                                    <h2>${products[i].name}</h2>
-                                    <br><img src="${products[i].image}">
-                                    <p>$${products[i].price}</p>
-                                    <label id="quantity${i}_label"}">Quantity</label>
-                                    <input type="text" placeholder="0" name="quantity${i}" 
-                                    onkeyup="checkQuantityTextbox(this);">
-                
-                                </section>
-                            `);
-                    }
-                </script>
-            </main>
-        </div>
-        <footer>
-            <input type="submit" value="Submit Purchase" name="submitPurchase">
-        </footer>
-    </form>
-</body>
+
+        <body>
+            <form name="product_form" action="process_purchase" method="POST">
+
+                <head>
+                    <h1>CULT GAIA</h1>
+                    <link href="products_style.css" rel="stylesheet">
+                </head>
+                <div class="productsbox">
+                </div>
+                <div>
+                    <main>
+                        <script>
+                            //all referenced from assignment 1 screencast
+                            for (i = 0; i < products.length; i++) {
+                                document.write(`
+                                        <section class="item">
+                                            <h2>${products[i].name}</h2>
+                                            <br><img src="${products[i].image}">
+                                            <p>$${products[i].price}</p>
+                                            <label id="quantity${i}_label"}">Quantity</label>
+                                            <input type="text" placeholder="0" name="quantity${i}" 
+                                            onkeyup="checkQuantityTextbox(this);">
+                        
+                                        </section>
+                                    `);
+                            }
+                        </script>
+                    </main>
+                </div>
+                <footer>
+                    <input type="submit" value="Submit Purchase" name="submitPurchase">
+                </footer>
+            </form>

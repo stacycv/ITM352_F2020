@@ -2,7 +2,9 @@
 Stacy Vasquez's Assignment 2 products display page 12/1/2020
 A1 - referenced A1 examples and screencast
 A2 - copied Stacy Vasquez's A1
+A3 - changed per request, referenced WW3 schools and https://www.tutorialrepublic.com/faq/how-to-change-image-on-hover-with-css.php
 The purpose is to let the customers purchase their desired products and not let them continue if an invalid quantity is entered
+also added sticky nav bar reference: https://www.w3schools.com/css/css_navbar_horizontal.asp
 -->
 <script src="./products_data.js" type="text/javascript">
     // links array
@@ -20,8 +22,9 @@ The purpose is to let the customers purchase their desired products and not let 
         
         .column {
             float: left;
+            height: 50%;
             width: 50%;
-            padding: 10px;
+            padding: 40px;
         }
         /* Clear floats after the columns */
         
@@ -29,24 +32,6 @@ The purpose is to let the customers purchase their desired products and not let 
             content: "";
             display: table;
             clear: both;
-        }
-        /* Style the buttons */
-        
-        .btn {
-            border: none;
-            outline: none;
-            padding: 12px 16px;
-            background-color: #f1f1f1;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: #ddd;
-        }
-        
-        .btn.active {
-            background-color: #666;
-            color: white;
         }
     </style>
 </head>
@@ -57,48 +42,91 @@ The purpose is to let the customers purchase their desired products and not let 
     <p>
         <h1>
             <meta charset="utf-8">
-            <title>TRUE Empress Essentials</title>
-            <link href="products_style.css" rel="stylesheet">
-        </h1>CULT GAIA</p>
-
-    <br>
-
-    <div class="row">
-        <div class="column" style="background-color:#aaa;">
-            <h2>Spring 2020</h2>
-            <p>Some text..</p>
-        </div>
-        <div class="column" style="background-color:#bbb;">
-            <h2>Summer 2020</h2>
-            <p>Some text..</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column" style="background-color:#ccc;">
-            <h2>Fall 2020</h2>
-            <p>Some text..</p>
-        </div>
-        <div class="column" style="background-color:#ddd;">
-            <h2>Resort 2021</h2>
-            <p>Some text..</p>
-        </div>
-    </div>
-
-    <script>
-        // Get the elements with class="column"
-        var elements = document.getElementsByClassName("column");
-
-        // Declare a loop variable
-        var i;
-
-        // List View
-        function listView() {
-            for (i = 0; i < elements.length; i++) {
-                elements[i].style.width = "100%";
+            <title>CULT GAIA</title>
+            <link href="products_style.css" rel="stylesheet"> CULT GAIA
+        </h1>
+        <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: beige;
+                position: -webkit-sticky;
+                /* Safari */
+                position: sticky;
+                top: 0;
             }
-        }
-    </script>
+            
+            li {
+                float: left;
+            }
+            
+            li a {
+                display: block;
+                color: black;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            
+            li a:hover {
+                background-color: bisque;
+            }
+            
+            .active {
+                background-color: beige;
+            }
+        </style>
+        </div>
+
+        <ul>
+
+            <li><a href="index.html">HOME</a></li>
+            <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+            <li>
+                <a href="registrationPage.html">REGISTER</a>
+            </li>
+            <li><a href="loginPage.html">LOGIN</a></li>
+        </ul>
+        <br>
+
+        <div class="row">
+            <div class="column" style="background-image: url(./images/S20/S20theraDressAmber678-2.jpg)">
+                <h2>Spring 2020</h2>
+                <p><a href="spring2020.html">click to view collection</a></p>
+            </div>
+
+            <div class="column " style="background-image: url(./images/Su20/Su20margotDressPool348-2.jpg)">
+                <h2>Summer 2020</h2>
+                <p><a href="summer2020.html">click to view collection</a></p>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="column" <div class="column " style="background-image: url(./images/F20/F20cleoPantAsh368.jpg)">
+                <h2>Fall 2020</h2>
+                <p><a href="fall2020.html">click to view collection</a></p>
+            </div>
+            <div class="column " style="background-image: url(./images/R21/R21antonellaKnitDressWildRose328-2.jpg)">
+                <h2>Resort 2021</h2>
+                <p><a href="resort2021.html">click to view collection</a></p>
+            </div>
+        </div>
+
+        <script>
+            // Get the elements with class="column "
+            var elements = document.getElementsByClassName("column ");
+
+            // List View and declaring variable
+            var i;
+
+            function listView() {
+                for (i = 0; i < elements.length; i++) {
+                    elements[i].style.width = "100% ";
+                }
+            }
+        </script>
 
 </body>
 

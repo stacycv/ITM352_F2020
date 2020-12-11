@@ -22,6 +22,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration Page</title>
+    <h1>
+        <meta charset="utf-8">
+        <title>CULT GAIA</title>
+        CULT GAIA
+    </h1>
     <style>
         header {
             text-align: center;
@@ -30,8 +35,7 @@
         
         body {
             font-family: 'Stan', serif;
-            background-image: url(./images/slide2.jpg);
-            background-size: fit-content;
+            background-image: url(./images/backgroundCG.jpg);
             background-position: cover;
             color: white;
             font-size: 20px;
@@ -53,47 +57,58 @@
             margin: 8px 0;
             box-sizing: border-box;
         }
-        
-        input[type=submit] {
-            font-weight: bold;
-            font-size: 70px;
-            color: black;
-            margin-top: 25px;
-        }
-        
-        .topnav {
-            overflow: hidden;
-            background-color: rgb(252, 252, 207);
-        }
-        
-        .topnav a {
-            float: left;
-            color: black;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-        /* Changes color on hover*/
-        
-        .topnav a:hover {
-            background-color: rgb(252, 252, 207);
-            color: black;
-        }
     </style>
 </head>
 
 <body>
-    <div class="topnav">
-        <a class="active" href="./index.html">Home</a>
-        <a href="./products_display.html">Products</a>
-
-
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: beige;
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            top: 0;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: bisque;
+        }
+        
+        .active {
+            background-color: beige;
+        }
+    </style>
     </div>
 
-    <h1>TRUE Empress Essentials</h1>
+    <ul>
+
+        <li><a href="index.html">HOME</a></li>
+        <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+        <li>
+            <a href="registrationPage.html">REGISTER</a>
+        </li>
+        <li><a href="loginPage.html">LOGIN</a></li>
+    </ul>
+    </div>
+    <br>
     <header>
-        Sign up with us!
+        Join the cult
     </header>
     <div>
         <script>
