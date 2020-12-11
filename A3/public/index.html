@@ -5,38 +5,48 @@ https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_pizza &
 https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_wedding&stacked=h 
 i combined both layouts to my desired design
 A2 - copied Stacy Vasquez's A1
+A3 - new design per-checkpoint request. referenced https://www.w3schools.com/howto/howto_css_fullscreen_video.asp 
 The purpose of the index is to be the "entry door" for customers. This will be the first thing they see when first looking at my e-commerce website
 */-->
 <html lang="en">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=&lt;device-width&gt;, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <video autoplay muted loop id="myVideo">
+    <source src="images/videoBackground.mp4" type="video/mp4">
+  </video>
 
-    <title>TRUE Empress Essentials Home Page</title>
+    <!-- Optional: some overlay text to describe the video -->
+    <div class="content">
 
-    <style>
-        body {
-            text-align: left;
-            margin-top: 650px;
-            background-image: url(./images/BackgroundSpa.jpg);
-            background-position: center;
-            background-size: cover;
-            min-height: fit-content;
-            color: white
-        }
-    </style>
-</head>
-
-<body>
-    </h1>
-    <div class="w3-display-middle w3-center">
-        <span class="w3-text-white" style="font-size:80px">TRUE Empress Essentials</span>
-        <p><a href="products_display.html" class="device-width" style="font-size:30px">click to see offers</a></p>
+        <body>
+            </h1>
+            <div class="w3-display-middle w3-center">
+                <span class="w3-text-white" style="font-size:80px">CULT GAIA</span>
+                <p><a href="products_display.html" class="device-width" style="font-size:20px">click to view store</a></p>
+            </div>
+        </body>
+        <style>
+            /* Style the video: 100% width and height to cover the entire window */
+            
+            #myVideo {
+                position: fixed;
+                right: 0;
+                bottom: -37;
+                min-width: 100%;
+                min-height: 100%;
+            }
+            /* Add some content at the bottom of the video/page */
+            
+            .content {
+                position: fixed;
+                bottom: 300;
+                color: beige;
+                width: 100%;
+                padding: 100px;
+            }
+        </style>
+        </h1>
     </div>
-    </h1>
-</body>
+</head>
 
 </html>

@@ -9,13 +9,7 @@ The purpose is to have the products display page look similar to the other pages
 /* general styling */
 
 html {
-    font-family: 'Stan', serif;
-    background-image: url(./images/slide2.jpg);
-    background-position: top;
-    background-size: cover;
-    font-size: 40px;
-    text-align: center;
-    /* Product Images, Price, and Quantity */
+    background-color: rgb(234, 247, 255);
 }
 
 
@@ -26,7 +20,7 @@ h1 {
     text-align: center;
     /* Title Page */
     font-size: 50px;
-    color: white;
+    color: black
 }
 
 h2 {
@@ -38,14 +32,14 @@ h2 {
 
 main {
     display: -webkit-inline-box;
-    color: white;
+    color: black;
     font-family: 'Stan', serif;
 }
 
 footer {
     text-align: center;
     font-size: 50px;
-    color: white;
+    color: black
 }
 
 
