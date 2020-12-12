@@ -20,28 +20,26 @@ h1 {
     text-align: center;
     /* Title Page */
     font-size: 50px;
-    color: black;
-    ;
+    color: white;
 }
 
 h2 {
     font-family: 'Stan', serif;
-    text-align: grid;
+    text-align: center;
     /* Product Names */
     font-size: 30px;
 }
 
 main {
     display: grid;
-    position: center;
-    color: black;
+    color: white;
     font-family: 'Stan', serif;
 }
 
 footer {
     text-align: center;
     font-size: 50px;
-    color: black
+    color: white;
 }
 
 

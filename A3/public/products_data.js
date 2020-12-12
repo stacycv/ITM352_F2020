@@ -92,10 +92,10 @@ The purpose of the products data is to list the price, images and names of the p
     ]
 }
 var products = {
-    "spring2020": spring2020,
-    "summer2020": summer2020,
-    "fall2020": fall2020,
-    "resort2021": resort2021
+    "Spring 2020": spring2020,
+    "Summer 2020": summer2020,
+    "Fall 2020": fall2020,
+    "Resort 2021": resort2021
 }
 
 

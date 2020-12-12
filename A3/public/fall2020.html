@@ -6,16 +6,6 @@ The purpose is to let the customers purchase their desired products and not let 
 -->
 <script src="./products_data.js" type="text/javascript">
     // links array
-    // get the query string
-    //added in from workshop
-    let params = (new URL(document.location)).searchParams;
-    if (params.has('products_key')) {
-        var this_product_key = params.get('products_key');
-    } else {
-        document.write('no products key in query string');
-        document.stop;
-    }
-    //end of code added from workshop
 </script>
 <script>
     //Referenced from assignment 1 examples
@@ -71,23 +61,66 @@ The purpose is to let the customers purchase their desired products and not let 
 
 <body>
     <form name="product_form" action="process_purchase" method="POST">
+        <p>
+            <h1>
+                <meta charset="utf-8">
+                <title>CULT GAIA</title>
+                <link href="products_style.css" rel="stylesheet"> CULT GAIA
+            </h1>
+            <style>
+                ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    background-color: beige;
+                    position: -webkit-sticky;
+                    /* Safari */
+                    position: sticky;
+                    top: 0;
+                }
+                
+                li {
+                    float: left;
+                }
+                
+                li a {
+                    display: block;
+                    color: black;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                }
+                
+                li a:hover {
+                    background-color: bisque;
+                }
+                
+                .active {
+                    background-color: beige;
+                }
+            </style>
+            </div>
 
-        <head>
-            <h1>CULT GAIA</h1>
-            <link href="products_style.css" rel="stylesheet">
-        </head>
-        <div class="productsbox">
-        </div>
-        <div>
+            <ul>
+
+                <li><a href="index.html">HOME</a></li>
+                <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+                <li>
+                    <a href="registrationPage.html">REGISTER</a>
+                </li>
+                <li><a href="loginPage.html">LOGIN</a></li>
+            </ul>
+            <br>
             <main>
                 <script>
                     //all referenced from assignment 1 screencast
-                    for (i = 0; i < products.length; i++) {
+                    for (i = 0; i < fall2020.length; i++) {
                         document.write(`
                                         <section class="item">
-                                            <h2>${products[i].name}</h2>
-                                            <br><img src="${products[i].image}">
-                                            <p>$${products[i].price}</p>
+                                            <h2>${fall2020[i].name}</h2>
+                                            <br><img src="${fall2020[i].image}">
+                                            <p>$${fall2020[i].price}</p>
                                             <label id="quantity${i}_label"}">Quantity</label>
                                             <input type="text" placeholder="0" name="quantity${i}" 
                                             onkeyup="checkQuantityTextbox(this);">
@@ -97,8 +130,8 @@ The purpose is to let the customers purchase their desired products and not let 
                     }
                 </script>
             </main>
-        </div>
-        <footer>
-            <input type="submit" value="Submit Purchase" name="submitPurchase">
-        </footer>
+            </div>
+            <footer>
+                <input type="submit" value="Submit Purchase" name="submitPurchase">
+            </footer>
     </form>
