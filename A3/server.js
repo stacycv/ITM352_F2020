@@ -15,11 +15,16 @@ var app = express(); // run the express function and start express
 var myParser = require("body-parser");
 const { request } = require('express');
 
-// if valid redirect to invoice, if not go order page
-app.all('*', function(request, response, next) {
-    console.log(request.method + ' to ' + request.path);
-    next();
-});
+// lab 15
+var cookieParser = require('cookie-parser'); // assigns cookieParser variable to require cookie-parser 
+app.use(cookieParser());
+
+var session = require('express-session'); // assigns session variable to require express-session 
+app.use(session({
+    secret: "ITM352 rocks!",
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.use(myParser.urlencoded({ extended: true })); //get data in the body
 //to process the response from what is typed in the form
@@ -32,7 +37,17 @@ if (fs.existsSync(filename)) {
 } else { //if no matching filename, error message will appear in console
     console.log(filename + 'does not exist! Please enter valid user login to proceed');
 }
+//referenced from a3 examples
+app.get("/login", function(request, response) {
+    response.cookie('username', 'stacycv', { maxAge: 60 * 10000 }).send('cookie set'); //sets name
+});
 
+app.get("/logout", function(request, response) {
+    username = request.cookies.username; //if you have a username cookie
+    //refernece https://flaviocopes.com/express-cookies/ 
+    response.clearCookie('username').send(`logged out! ${username}`);
+});
+//end of reference from a3 examples
 app.post("/process_login", function(request, response) { // process login from POST and redirect to invoice if matches correctly
     POST = request.body; //nicer to look at when writing strings
     RQ = request.query; //nicer to look at when writing strings
