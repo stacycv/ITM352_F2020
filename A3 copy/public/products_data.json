@@ -1,0 +1,86 @@
+{
+    "spring2020": [{
+            "name": "Bira Dress - Sand",
+            "price": 518.00,
+            "image": "./images/S20/S20biraDressSand518.jpg"
+        },
+        {
+            "name": "Krystle Top - Cream",
+            "price": 298.00,
+            "image": "./images/S20/S20krystleTopCream298.jpg"
+        },
+        {
+            "name": "Rosa Top - Hibiscus",
+            "price": 598.00,
+            "image": "./images/S20/S20rosaTopHibiscus598.jpg"
+        },
+        {
+            "name": "Thera Dress - Amber",
+            "price": 678.00,
+            "image": "./images/S20/S20theraDressAmber678.jpg"
+        }
+    ],
+    "summer2020": [{
+            "name": "Margot Dress - Pool",
+            "price": 348.00,
+            "image": "./images/Su20/Su20margotDressPool348.jpg"
+        },
+        {
+            "name": "Tiana Dress - Magnolia",
+            "price": 418.00,
+            "image": "./images/Su20/Su20tianaDressMagnolia418.jpg"
+        },
+        {
+            "name": "Naomi Dress - Aquamarine",
+            "price": 198.00,
+            "image": "./images/Su20/Su20naomiDressAquamarine198.jpg"
+        },
+        {
+            "name": "Serita Dress - Off White",
+            "price": 458.00,
+            "image": "./images/Su20/Su20seritaDressOffWhite458.jpg"
+        }
+    ],
+    "fall2020": [{
+            "name": "Cleo Pant - Ash",
+            "price": 368.00,
+            "image": "./images/F20/F20cleoPantAsh368.jpg"
+        },
+        {
+            "name": "Emi Dress - Off White",
+            "price": 1988.00,
+            "image": "./images/F20/F20emiDressOffWhite1988.jpg"
+        },
+        {
+            "name": "Nyx Coat - Ash",
+            "price": 698.00,
+            "image": "./images/F20/F20nyxCoatAsh698.jpg"
+        },
+        {
+            "name": "Stacie Pant - Black",
+            "price": 298.00,
+            "image": "./images/F20/F20staciePantBlack298.jpg"
+        }
+    ],
+    "resort2021": [{
+            "name": "Antonella Knit Dress - Wild Rose",
+            "price": 328.00,
+            "image": "./images/R21/R21antonellaKnitDressWildRose328.jpg"
+        },
+        {
+            "name": "Hanna Top - Light Camel",
+            "price": 358.00,
+            "image": "./images/R21/R21hannaTopLightCamel358.jpg"
+        },
+        {
+            "name": "Kersti Pant - Sapphire",
+            "price": 298.00,
+            "image": "./images/R21/R21kerstiPantSapphire298.jpg"
+        },
+        {
+            "name": "Yara Knit Dress - Amber",
+            "price": 318.00,
+            "image": "./images/R21/R21yaraKnitDressAmber318.jpg"
+        }
+    ]
+}

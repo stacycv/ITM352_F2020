@@ -1,0 +1,114 @@
+<!--
+Stacy Vasquez's Assignment 2 products display page 12/1/2020
+A1 - referenced A1 examples and screencast
+A2 - copied Stacy Vasquez's A1
+The purpose is to let the customers purchase their desired products and not let them continue if an invalid quantity is entered
+-->
+<script src="./products_data.json" type="text/javascript">
+</script>
+<script>
+    var product_type = "spring2020"; // allows access to array
+    //Referenced from assignment 1 examples
+    function isNonNegInt(amount, return_errors = false) {
+        errors = []; // assuming no errors
+        if (amount == '') amount = 0; // handles blank inputs as 0s
+        if (Number(amount) != amount) errors.push('<font color="red">Not a number!</font>'); // Check if string is a number value
+        else if (amount < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+        else if (parseInt(amount) != amount) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+        return return_errors ? errors : (errors.length == 0);
+    }
+
+    function checkQuantityTextbox(theTextbox) {
+        errs = isNonNegInt(theTextbox.value, true);
+        if (errs.length == 0) errs = ['Quantity:'];
+        if (theTextbox.value.trim() == '') errs = ['Quantity'];
+        document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+    }
+    //adding
+    function addtocart(i) {
+        var recordAmount = product_form[`quantity${i}`].value;
+        if (isNonNegInt(recordAmount) == true) {
+            sessionStorage[`${products}`] = recordAmount;
+            document.getElementById(`shoppingcart${i}`).innerHTML = 'Added to Cart!';
+        } else {
+            document.getElementById(`shoppingcart${i}`).innerHTML = 'Cannot Add Item to Cart. Please Enter Valid Quantities.';
+        }
+    }
+    //reference sharon product display
+    window.onload = function() {
+        let params = (new URL(document.location)).searchParams; // gets query string + form data
+        // when form is submitted, check if quantities are valid then redirect to invoice 
+        if (params.has('submitPurchase')) {
+            errs = false; // assume quantities are valid from the start
+            total_qty = 0; // need to check if something was selected so we will look if the total > 0
+            //For every product in the array, write the product number, display its image and name, and list price
+            for (i = 0; i < products[product_type].length; i++) {
+                if (params.has(`quantity${i}`)) {
+                    a_qty = params.get(`quantity${i}`);
+                    // make textboxes sticky in case of invalid data
+                    product_form[`quantity${i}`].value = a_qty;
+                    total_qty += a_qty;
+                    if (!isNonNegInt(a_qty)) {
+                        errs = true; // invalid quantity
+                        checkQuantityTextbox(product_form[`quantity${i}`]); // show where the error is
+                    }
+                }
+            }
+            // Now respond to errors or redirect to invoice if all is ok
+            if (errs) {
+                alert("Please enter only valid quantities");
+            } else if (total_qty == 0) { // no quantity selections, just give a general alert
+                alert("Please select some quantities");
+            }
+        }
+    }
+</script>
+
+<!DOCTYPE html>
+<html>
+
+<body>
+    <form name="product_form" action="process_purchase" method="POST">
+        <p>
+            <h1>
+                <meta charset="utf-8">
+                <title>CULT GAIA</title>
+                <link href="products_style.css" rel="stylesheet"> CULT GAIA
+            </h1>
+            </div>
+
+            <ul>
+
+                <li><a href="index.html">HOME</a></li>
+                <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+                <li>
+                    <a href="registrationPage.html">REGISTER</a>
+                </li>
+                <li><a href="loginPage.html">LOGIN</a></li>
+            </ul>
+            <br>
+            <main>
+                <script>
+                    document.write("SHOPPING SPRING 2020");
+                    //all referenced from assignment 1 screencast & changing footer to load to cart + specifing what array
+                    for (i = 0; i < spring2020.length; i++) {
+                        document.write(`
+                                        <section class="item">
+                                            
+                                            <br><img src="${spring2020[i].image}">
+                                            <h3>${spring2020[i].name}</h3>
+                                            <p>$${spring2020[i].price}</p>
+                                            <label id="quantity${i}_label"}">Quantity</label>
+                                            <input type="text" placeholder="0" name="quantity${i}" 
+                                            onkeyup="checkQuantityTextbox(this);">
+                        
+                                        </section>
+                                    `);
+                    }
+                </script>
+            </main>
+            </div>
+            <footer>
+                <input type="submit" value="Add to cart" name="addtocart" onclick='addtocart'>
+            </footer>
+    </form>
