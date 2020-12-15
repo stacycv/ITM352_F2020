@@ -8,12 +8,13 @@ The purpose of the server is to connect and process the information throughout m
 var data = require('./public/products_data.js'); //must have data from product_data.js
 var products = data.products;
 const queryString = require('query-string'); // so it'll load querystring
-var filename = 'user_data.json'; // new
+var filename = './user_data.json'; // new
 var fs = require('fs'); //Loading file system
 var express = require('express'); //server requires express to run
 var app = express(); // run the express function and start express
 var myParser = require("body-parser");
-const { request } = require('express');
+
+var products = data.products; //added dec 14
 
 // lab 15
 var cookieParser = require('cookie-parser'); // assigns cookieParser variable to require cookie-parser 
@@ -25,6 +26,14 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+// Retrieved from Professor Port's Assignment 1 Example
+// Uses function to check if string is a non-negative integer
+app.all('*', function(request, response, next) {
+    console.log(request.method + ' to ' + request.path); // Logs request method and path to the console;
+    next();
+});
+//end of new code
 
 app.use(myParser.urlencoded({ extended: true })); //get data in the body
 //to process the response from what is typed in the form
@@ -163,11 +172,12 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     console.log(request.session.cart); //log the session cart data into the console
     var str = "";
     str += `
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" href="./product_style.css">
     <header>
-    <h1>Beautifully Designed</h1>
-    <ul>
+    <h1>
+    <meta charset="utf-8">
+    <title>CULT GAIA</title>
+    <link href="products_style.css" rel="stylesheet"> CULT GAIA
+</h1>
 
     <li><a href="index.html">HOME</a></li>
     <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
@@ -280,34 +290,34 @@ app.post("/display_cart", function(request, response) { // posts data from the d
 });
 
 app.post("/process_form", function(request, response) { // posts data from the process form, with action named "process_form"
-    if (typeof request.session.cart == "undefined") {
-        request.session.cart = {};
+    if (typeof request.session.cart == "undefined") { // if the sessions cart is undefined
+        request.session.cart = {}; // set cart to empty
     }
     let POST = request.body; // lets POST variable hold contents of the body 
     var hasPurchases = false; // sets hasPurchases variable to false, assuming that the quantity of purchases starts off as false
-    var isValidData = true;
+    var isValidData = true; // sets is ValidData variable to true, assuming that the data entered is valid
+    console.log(products);
 
-    if (typeof POST["product_type"] != "undefined") {
-        var product_type = POST["product_type"];
-        for (i = 0; i < products[product_type].length; i++) { // For loop that generates length of products by +1, (i=i+1 -> post increment: use the value of i first, then increment)
+    if (typeof POST["product_type"] != "undefined") { // if "product_type" string is not undefined
+        var product_type = POST["product_type"]; // set product_type variable to request the body of "product_type" string
+        for (i = 0; i < products[product_type].length; i++) { // For loop that generates length of products by their product type by +1, (i=i+1 -> post increment: use the value of i first, then increment)
             q = POST[`quantity${i}`]; // assigns q variable to the quantity that is submitted by the user
             if (q > 0) { // if the quantity entered is more than zero
                 hasPurchases = true; // then hasPurchases variable is now set at true, as the user has entered a valid quantity of at least 1
             }
-            if (isNonNegInt(q) == false) {
-                isValidData = false;
+            if (isNonNegInt(q) == false) { // if quantity entered fails isNonNegInt function
+                isValidData = false; // then isValidData is now set at false, as the user probably entered invalid data (negative, not an integer, letters, etc)
             }
 
         }
-    }
+    } // Received help from Professor Port's office hours
     var qString = queryString.stringify(POST); // creates qString variable to string the query together
     if (isValidData == true && hasPurchases == true) { // if the quantity is a valid integer and the quantity is valid for purchase + add the valid amount to cart
-        request.session.cart[product_type] = POST;
-        //response.redirect("/login?" + qString); // then redirect the user to the login page with the qString path
-        qString += "&addedToCart=true";
-        console.log(request.session.cart);
+        request.session.cart[product_type] = POST; // then request the body of sessions cart data by product type
+        qString += "&addedToCart=true"; // add to qString a string in URL that identifies that something valid has been added to the cart (created & used to send alert that items have been added on page)
+        console.log(request.session.cart); // log the sessions cart into the console
     }
-    response.redirect(`${request.headers["referer"]}?` + qString); // everything else is assumed to be invalid data, redirecting the user to the products.html (shop) page along with the qString path
+    response.redirect(`${request.headers["referer"]}?` + qString); // redirects to same page with same qString when items are added
 });
 //reference kydee
 
@@ -316,7 +326,7 @@ app.post("/process_form", function(request, response) { // posts data from the p
 function isNonNegInt(q, returnErrors = false) {
     errors = []; // assume no errors at first
     if (q == "") { q = 0; }
-    if (Number(qty) != q) errors.push('Not a number!'); // Check if string is a number value
+    if (Number(q) != q) errors.push('Not a number!'); // Check if string is a number value
     if (q < 0) errors.push('Negative value!'); // Check if it is non-negative
     if (parseInt(q) != q) errors.push('Not an integer!'); // Check that it is an integer
     return returnErrors ? errors : (errors.length == 0);

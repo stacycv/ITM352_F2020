@@ -1,0 +1,101 @@
+/* <!--
+Stacy Vasquez's Assignment 2 products style page 12/15/2020
+A1 - style referenced from SmartPhoneProducts2 & Took from CSS Styling Website 
+A2 - copied Stacy Vasquez's A1
+The purpose is to have the products display page look similar to the other pages to give a cohesive feel throughout the e-commerce website
+--> /*
+
+
+/* general styling */
+
+html {
+    background-color: rgb(234, 247, 255);
+}
+
+
+/*headings*/
+
+h1 {
+    font-family: 'Stan', serif;
+    text-align: center;
+    /* Title Page */
+    font-size: 50px;
+    color: black;
+}
+
+h2 {
+    font-family: 'Stan', serif;
+    text-align: center;
+    /* Product Names */
+    font-size: 30px;
+}
+
+main {
+    display: -moz-inline-grid;
+    column-count: inherit;
+    column-gap: 30px;
+    column-rule-style: solid;
+    column-rule-width: 6px;
+    padding: 2.5em;
+    margin-top: 0px;
+    text-align: center;
+    position: center;
+    color: black;
+    font-family: 'Stan', serif;
+}
+
+footer {
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+
+
+/*image */
+
+img {
+    width: 300px;
+    height: 300px;
+    position: center;
+    border-radius: 5px;
+}
+
+input[type=submit] {
+    width: 30em;
+    height: 30px;
+    color: black;
+    position: center;
+    background-color: beige;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: beige;
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: darkgray;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: bisque;
+}
+
+.active {
+    background-color: beige;
+}

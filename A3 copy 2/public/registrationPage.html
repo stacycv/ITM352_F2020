@@ -1,0 +1,160 @@
+<!--
+    Stacy Vasquez's Assignment 2 registration page 12/15/2020
+    A2 - new! 
+    Referenced code from Alvin Almura, sytle took from W3 schools, 
+    The purpose is to have the registration  page look similar to the other pages to give a cohesive feel throughout the e-commerce website and allow users who do not yet have a log in to make one and become a returning user!
+    -->
+
+<html lang="en">
+
+<head>
+    <script>
+        let params = (new URL(document.location)).searchParams;
+
+        window.onload = function() {
+            if (params.has('errors')) {
+                console.log("invalid");
+                alert('Fix the following errors: \n' + params.get('errors'));
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration Page</title>
+    <h1>
+        <meta charset="utf-8">
+        <title>CULT GAIA</title>
+        CULT GAIA
+    </h1>
+    <style>
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        body {
+            font-family: 'Stan', serif;
+            background-color: rgb(234, 247, 255);
+            background-position: cover;
+            color: black;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        form {
+            text-align: center;
+        }
+        /* referenced from w3schools*/
+        
+        input[type=text],
+        input[type=password],
+        input[type=email] {
+            text-align: center;
+            font-size: 15px;
+            width: 60%;
+            padding: 10px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: beige;
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            top: 0;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: darkgray;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: bisque;
+        }
+        
+        .active {
+            background-color: beige;
+        }
+    </style>
+    </div>
+
+    <ul>
+
+        <li><a href="index.html">HOME</a></li>
+        <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+        <li>
+            <a href="registrationPage.html">REGISTER</a>
+        </li>
+        <li><a href="loginPage.html">LOGIN</a></li>
+    </ul>
+    </div>
+    <br>
+    <header>
+        Join the cult
+    </header>
+    <div>
+        <script>
+            registration.action += document.location.search;
+            //NEW CODE BEING ADDED REFERENCED FROM ALVIN-->
+
+            function validate() { //function validate their passwords upon submission
+                let password = document.getElementById("password").value; //setting variables
+                let repeat_password = document.getElementById("repeat_password").value; //setting variables
+                if (password == repeat_password) //if passwords match
+                    document.getElementbyID("registration").submit(); //process registration POST
+                else { //if they do not match
+                    alert("Passwords do not match!"); //send an alert that they dont match
+                }
+            }
+
+            //END OF NEW CODE REFERENCED FROM ALVIN-->
+        </script>
+        <form action="/process_registration" method="POST" class="form" name="registration">
+            <!-- sets the action and method-->
+
+            <div class="registration">
+                <div class="name">
+                    <input type="text" placeholder="First & Last Name" minlength="4" maxlength="30" name="name" required />
+                </div>
+                <div class="username">
+                    <input type="text" placeholder="Username" minlength="8" maxlength="20" name="username" required />
+                </div>
+
+                <div class="email">
+                    <input type="email" placeholder="Email" minlength="4" name="email" required />
+                </div>
+                <div class="password">
+                    <input type="password" placeholder="Password" id="password" minlength="8" name="password" required />
+                </div>
+                <div class="repeat_password">
+                    <input type="password" placeholder="Re-enter Password" id="repeat_password" minlength="8" name="repeat_password" required />
+                </div>
+            </div>
+            <button <input type="submit" id="submit" onclick="validate()">Sign me up!
+              </button>
+        </form>
+        <script>
+            registration.action += document.location.search;
+        </script>
+    </div>
+</body>
+
+</html>

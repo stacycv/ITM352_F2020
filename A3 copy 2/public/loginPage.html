@@ -1,0 +1,144 @@
+<!--
+Stacy Vasquez's Assignment 2 login page 12/15/2020
+A2 - new!
+The purpose is to have users log in before seeing their invoice so it's only customers purchasing products and not randoms
+The style is also included to look similar to rest of site
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <script>
+        let params = (new URL(document.location)).searchParams;
+        //maybe see if you can change this to validation if time allows
+        window.onload = function() {
+            if (params.has('LoginError')) {
+                alert('Uh oh, invalid username or password');
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Page</title>
+    <h1>
+        <meta charset="utf-8">
+        <title>CULT GAIA</title>
+        CULT GAIA
+    </h1>
+    <style>
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        body {
+            font-family: 'Stan', serif;
+            background-color: rgb(234, 247, 255);
+            background-position: cover;
+            color: black;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        form {
+            text-align: center;
+        }
+        /* referenced from w3schools*/
+        
+        input[type=text],
+        input[type=password],
+        input[type=email] {
+            text-align: center;
+            font-size: 15px;
+            width: 60%;
+            padding: 10px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: beige;
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            top: 0;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: darkgray;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: bisque;
+        }
+        
+        .active {
+            background-color: beige;
+        }
+    </style>
+    </div>
+
+    <ul>
+
+        <li><a href="index.html">HOME</a></li>
+        <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+        <li>
+            <a href="registrationPage.html">REGISTER</a>
+        </li>
+        <li><a href="loginPage.html">LOGIN</a></li>
+    </ul>
+    </div>
+    <br>
+    <p>To continue to purchase page<br> please login or register!</p>
+    <form name="login" action="process_login" method="POST">
+        <div class="login">
+            <div class="username">
+                <input type="text" placeholder="Username" minlength="4" maxlength="10" name="username" required>
+            </div>
+
+            <div class="password">
+                <input type="password" placeholder="Password" id="password" minlength="6" maxlength="12" name="password" required>
+            </div>
+        </div>
+
+        </div>
+
+        <button class="login-btn" type="submit" name="submitLogin">Login</button>
+
+    </form>
+    <script>
+        login.action += document.location.search; //keeping og data included like another stringify
+    </script>
+</body>
+
+
+<h2> or create an account here! </h2>
+
+<body>
+
+    <input type="button" name="signUp" value="Click here to register!" onclick="window.location='./registrationPage.html' + document.location.search;">
+
+
+
+</body>
+
+</html>
