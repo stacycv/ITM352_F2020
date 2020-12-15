@@ -5,19 +5,9 @@ A2 - copied Stacy Vasquez's A1
 The purpose is to let the customers purchase their desired products and not let them continue if an invalid quantity is entered
 -->
 <script src="./products_data.js" type="text/javascript">
-    // links array
-    // get the query string
-    //added in from workshop
-    let params = (new URL(document.location)).searchParams;
-    if (params.has('products_key')) {
-        var this_product_key = params.get('products_key');
-    } else {
-        document.write('no products key in query string');
-        document.stop;
-    }
-    //end of code added from workshop
 </script>
 <script>
+    var product_type = "resort2021"; // allows access to array
     //Referenced from assignment 1 examples
     function isNonNegInt(amount, return_errors = false) {
         errors = []; // assuming no errors
@@ -34,6 +24,8 @@ The purpose is to let the customers purchase their desired products and not let 
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
+
+    //reference sharon product display
     window.onload = function() {
         let params = (new URL(document.location)).searchParams; // gets query string + form data
         // when form is submitted, check if quantities are valid then redirect to invoice 
@@ -41,7 +33,7 @@ The purpose is to let the customers purchase their desired products and not let 
             errs = false; // assume quantities are valid from the start
             total_qty = 0; // need to check if something was selected so we will look if the total > 0
             //For every product in the array, write the product number, display its image and name, and list price
-            for (i = 0; i < products.length; i++) {
+            for (i = 0; i < products[product_type].length; i++) {
                 if (params.has(`quantity${i}`)) {
                     a_qty = params.get(`quantity${i}`);
                     // make textboxes sticky in case of invalid data
@@ -58,9 +50,8 @@ The purpose is to let the customers purchase their desired products and not let 
                 alert("Please enter only valid quantities");
             } else if (total_qty == 0) { // no quantity selections, just give a general alert
                 alert("Please select some quantities");
-            } else {
-                window.location = `./invoice.html${document.location.search}`;
-                window.stop;
+            } else if (params.has("addedToCart")) { // if addedToCart detected, send alert that their items have been added to the cart
+                alert("Your items have been added to the cart");
             }
         }
     }
@@ -70,33 +61,40 @@ The purpose is to let the customers purchase their desired products and not let 
 <html>
 
 <body>
-    <form name="product_form" action="process_purchase" method="POST">
+    <form name="product_form" action="process_form" method="POST">
+        <script>
+            document.write(`<input type = "hidden" name = "product_type" value = "${product_type}">`); //hidden input type that allows product_type to be generated
+        </script>
         <p>
             <h1>
                 <meta charset="utf-8">
                 <title>CULT GAIA</title>
                 <link href="products_style.css" rel="stylesheet"> CULT GAIA
             </h1>
-            </div>
+
 
             <ul>
-
-                <li><a href="index.html">HOME</a></li>
-                <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
-                <li>
-                    <a href="registrationPage.html">REGISTER</a>
-                </li>
-                <li><a href="loginPage.html">LOGIN</a></li>
+                <header>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+                    <li>
+                        <a href="registrationPage.html">REGISTER</a>
+                    </li>
+                    <li><a href="loginPage.html">LOGIN</a></li>
+                    <li><a href="/display_cart">CART</a></li>
             </ul>
+            </header>
             <br>
             <main>
                 <script>
-                    //all referenced from assignment 1 screencast
+                    document.write("SHOPPING SPRING 2020");
+                    //all referenced from assignment 1 screencast & changing footer to load to cart + specifing what array
                     for (i = 0; i < resort2021.length; i++) {
                         document.write(`
                                         <section class="item">
-                                            <h2>${resort2021[i].name}</h2>
+                                            
                                             <br><img src="${resort2021[i].image}">
+                                            <h3>${resort2021[i].name}</h3>
                                             <p>$${resort2021[i].price}</p>
                                             <label id="quantity${i}_label"}">Quantity</label>
                                             <input type="text" placeholder="0" name="quantity${i}" 
@@ -109,6 +107,9 @@ The purpose is to let the customers purchase their desired products and not let 
             </main>
             </div>
             <footer>
-                <input type="submit" value="Submit Purchase" name="submitPurchase">
+                <input type="submit" value="Add to cart" name="submitPurchase">
             </footer>
     </form>
+</body>
+
+</html>
