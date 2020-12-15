@@ -135,7 +135,8 @@ app.post("/process_registration", function(request, response) {
         response.redirect('/registrationPage.html?' + queryString.stringify(POST)) //keep reloading page until corrected
     }
 }); // added registration
-
+/*
+//canceled out because changed purchase to form
 app.post("/process_purchase", function(request, response) {
     POST = request.body;
 
@@ -155,7 +156,162 @@ app.post("/process_purchase", function(request, response) {
             response.redirect("./products_display.html?" + queryString.stringify(POST)); // reload until corrected and alert will show up
         }
     }
+}); */
+
+//reference kydee
+app.get("/display_cart", function(request, response, next) { //created to display items in the shopping cart
+    console.log(request.session.cart); //log the session cart data into the console
+    var str = "";
+    str += `
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <link rel="stylesheet" href="./product_style.css">
+    <header>
+    <h1>Beautifully Designed</h1>
+    <ul>
+
+    <li><a href="index.html">HOME</a></li>
+    <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+    <li>
+        <a href="registrationPage.html">REGISTER</a>
+    </li>
+    <li><a href="loginPage.html">LOGIN</a></li>
+    <li><a href="/display_cart">CART</a></li>
+</ul>
+<br>
+  
+  
+  </header>
+  <h2> Cart </h2>`
+
+
+    if (session.username != undefined) {
+        str += `<h3> <p style="color:red">Welcome ${session.username}! You are currently logged in. </p></h3> <!--UI message for user if they are logged in-->`
+    }
+
+    //variabes created to keep track of extended price, subtotal, tax rate and shipping costs
+    extended_price = 0;
+    subtotal = 0;
+    var tax_rate = 0.0575;
+    shipping = 0;
+
+    //for loops that generate products that the customer orders and posts them on the cart page
+    for (product_type in request.session.cart) {
+        for (i = 0; i < products[product_type].length; i++) {
+            //variable used to check that the quantities of the products
+            q = request.session.cart[product_type][`quantity${i}`];
+            if (q == 0) {
+                continue;
+            }
+            //extended price is the price of each product times the amount of that item added
+            extended_price = products[product_type][i]["price"] * q;
+            subtotal += extended_price;
+            //this string will be posted on the cart page
+            str += `
+     
+  
+      <body>     
+      <form action="/display_cart" method="POST">
+  
+      <div class="shop-item">
+      <!--List the product names-->
+              <h4><span class="shop-item-title">${products[product_type][i]["product"]}</span>
+              <hr class="space" />
+              <!--Show the images of each product-->
+              <div class="enlarge">
+                  <img class="shop-item-image" src=${products[product_type][i]["image"]}>
+              </div>
+              <!--Show the quantity of each product-->
+              <hr class="space" />
+              <label id="quantity${i}_label" class="shop-item-quantity">Quantity: ${q}</label>
+              <div class="shop-item-details">
+              <!--List the prices and extended prices-->
+                  <hr class="space" />
+                  <span class="shop-item-price">Price: $${extended_price}</span><br></h4>
+              </div>
+              </div>
+         </form>
+  </body>
+  `;
+        }
+    }
+    // Compute shipping
+    if (subtotal > 0 && subtotal <= 2500) { // If subtotal is less than or equal to $2,500, shipping = $5
+        shipping = 5;
+    } else if (subtotal > 2500 && subtotal <= 5000) { // Else if subtotal is less than or equal to $5,000, shipping = $10
+        shipping = 10;
+    } else if (subtotal > 5000) { // Else if subtotal is greater than $5,000, shipping = $0 (free)
+        shipping = 0; // Free shipping!
+    }
+    //calculate the tax by multiplying the tax rate to the subtotal
+    var tax = tax_rate * subtotal;
+    //calculate the grand total by adding subtotal with tax and shipping
+    var grand_total = subtotal + tax + shipping;
+
+    //add html to display cost information to the str variable
+    str += ` 
+    <form action="/display_cart" method="POST">
+    <footer>
+    <div class="shop-item-description">Subtotal: $${subtotal.toFixed(2)}</div>
+    <div class="shop-item-description">Shipping: $${shipping.toFixed(2)}</div>
+    <div class="shop-item-description">Tax: $${tax.toFixed(2)}</div>
+    <div class="shop-item-description">Grandtotal: $${grand_total.toFixed(2)}</div>
+  
+    <input type="submit" value="Checkout Cart!" name="submit_cart">
+  </footer>
+  </form>`
+    if (grand_total == 0) {
+        response.send(`
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <link rel="stylesheet" href="./product_style.css"> 
+    <h2>Your cart is empty <br>Please go <a href="./">back</a> and add items to view your cart</h2>`);
+    }
+
+    response.send(str);
+
 });
+
+app.post("/display_cart", function(request, response) { // posts data from the display_cart form, with action named "display_cart"
+    if (typeof session.username != "undefined") {
+        response.redirect('invoice.html'); //changed
+    } else {
+        response.redirect('loginPage.html'); //changed
+
+    }
+});
+
+app.post("/process_form", function(request, response) { // posts data from the process form, with action named "process_form"
+    if (typeof request.session.cart == "undefined") {
+        request.session.cart = {};
+    }
+    let POST = request.body; // lets POST variable hold contents of the body 
+    var hasPurchases = false; // sets hasPurchases variable to false, assuming that the quantity of purchases starts off as false
+    var isValidData = true;
+
+    if (typeof POST["product_type"] != "undefined") {
+        var product_type = POST["product_type"];
+        for (i = 0; i < products[product_type].length; i++) { // For loop that generates length of products by +1, (i=i+1 -> post increment: use the value of i first, then increment)
+            q = POST[`quantity${i}`]; // assigns q variable to the quantity that is submitted by the user
+            if (q > 0) { // if the quantity entered is more than zero
+                hasPurchases = true; // then hasPurchases variable is now set at true, as the user has entered a valid quantity of at least 1
+            }
+            if (isNonNegInt(q) == false) {
+                isValidData = false;
+            }
+
+        }
+    }
+    var qString = queryString.stringify(POST); // creates qString variable to string the query together
+    if (isValidData == true && hasPurchases == true) { // if the quantity is a valid integer and the quantity is valid for purchase + add the valid amount to cart
+        request.session.cart[product_type] = POST;
+        //response.redirect("/login?" + qString); // then redirect the user to the login page with the qString path
+        qString += "&addedToCart=true";
+        console.log(request.session.cart);
+    }
+    response.redirect(`${request.headers["referer"]}?` + qString); // everything else is assumed to be invalid data, redirecting the user to the products.html (shop) page along with the qString path
+});
+//reference kydee
+
+
 // direct lab 13 reference
 function isNonNegInt(q, returnErrors = false) {
     errors = []; // assume no errors at first

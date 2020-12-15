@@ -7,7 +7,7 @@ The purpose is to let the customers purchase their desired products and not let 
 <script src="./products_data.js" type="text/javascript">
 </script>
 <script>
-    var product_type = "spring2020"; // allows access to array
+    var product_type = "Spring 2020"; // allows access to array
     //Referenced from assignment 1 examples
     function isNonNegInt(amount, return_errors = false) {
         errors = []; // assuming no errors
@@ -24,16 +24,7 @@ The purpose is to let the customers purchase their desired products and not let 
         if (theTextbox.value.trim() == '') errs = ['Quantity'];
         document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
     }
-    //adding
-    function addtocart(i) {
-        var recordAmount = product_form[`quantity${i}`].value;
-        if (isNonNegInt(recordAmount) == true) {
-            sessionStorage[`${products}`] = recordAmount;
-            document.getElementById(`shoppingcart${i}`).innerHTML = 'Added to Cart!';
-        } else {
-            document.getElementById(`shoppingcart${i}`).innerHTML = 'Cannot Add Item to Cart. Please Enter Valid Quantities.';
-        }
-    }
+
     //reference sharon product display
     window.onload = function() {
         let params = (new URL(document.location)).searchParams; // gets query string + form data
@@ -59,6 +50,8 @@ The purpose is to let the customers purchase their desired products and not let 
                 alert("Please enter only valid quantities");
             } else if (total_qty == 0) { // no quantity selections, just give a general alert
                 alert("Please select some quantities");
+            } else if (params.has("addedToCart")) { // if addedToCart detected, send alert that their items have been added to the cart
+                alert("Your items have been added to the cart");
             }
         }
     }
@@ -68,7 +61,7 @@ The purpose is to let the customers purchase their desired products and not let 
 <html>
 
 <body>
-    <form name="product_form" action="process_purchase" method="POST">
+    <form name="product_form" action="process_form" method="POST">
         <p>
             <h1>
                 <meta charset="utf-8">
@@ -85,6 +78,7 @@ The purpose is to let the customers purchase their desired products and not let 
                     <a href="registrationPage.html">REGISTER</a>
                 </li>
                 <li><a href="loginPage.html">LOGIN</a></li>
+                <li><a href="/display_cart">CART</a></li>
             </ul>
             <br>
             <main>
@@ -109,6 +103,6 @@ The purpose is to let the customers purchase their desired products and not let 
             </main>
             </div>
             <footer>
-                <input type="submit" value="Add to cart" name="addtocart" onclick='addtocart'>
+                <input type="submit" value="Add to cart" name="purchase_submit">
             </footer>
     </form>
