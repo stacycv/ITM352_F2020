@@ -70,7 +70,7 @@ app.post("/process_login", function(request, response) { // process login from P
       <link rel="stylesheet" href="./products_style.css"> 
       <h2>${the_username} is logged in on ${theDate} <br><br>- Click <a href="./">here</a> to continue shopping<br>- Click <a href="./display_cart">here</a> to go back to cart</h2>
       `)
-                // response.redirect('./login?' + quantityQuery_str + `&username=${the_username}`); **small changes
+                // response.redirect('./process_login?' + quantityQuery_str + `&username=${the_username}`); **small changes
                 // response.redirect('/invoice.html?' + queryString.stringify(RQ)); **cancel to add above code
             return; //redirect to the invoice if valid
         } else { //letting them know exactly whats wrong with the information entered (username is listed in this one because it is existant)
@@ -89,103 +89,145 @@ app.post("/process_login", function(request, response) { // process login from P
     }
 });
 
-app.get("/login", function(request, response) { //created to display login page
+//moved login page here so the cookie with be included
+app.get("/process_login", function(request, response) { //created to display login page
     console.log(request.query); // print out q-str
     if (typeof request.cookies['username'] != 'undefined') {
         str = `Welcome ${request.cookies['name']}!`
     } else {
         quantity_str = request.query;
-
-        // Give a simple login form
-
-        /* 
-        //referenced from a3 examples
-        app.get("/login", function(request, response) {
-            response.cookie('username', 'stacycv', { maxAge: 60 * 10000 }).send('cookie set'); //sets name
-        });
-        */
-
         str = `
   <body>
-      <form action="/login" method="POST">`
+      <form action="/process_login" method="POST">`
 
         if (session.username != undefined) { // if sessions username is not undefined, send a UI personalized user message that lets them know their login was successful, the time & date they logged in, and tells them to go back to shop (if login link in navbar is clicked again after successfully logging in, this message will help prevent them from logging in more than once )
-            str += `<h1>Hello ${session.username}! You logged in at ${session.last_login_time}<br><p style="color:red"> Please Go Back to Shop</p><br>_______________________________________</h1> `
+            str += `<h1>Hello ${session.username}! You are already logged in<br><p style="color:red"> Please Go Back to Shop</p><br>_______________________________________</h1> `
         }
 
-        str += `<h1>Log In</h1> <!--html that displays the login page-->
-          <div class="container">
-          <label for="username"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="username"}> 
-      
-          <label for="password"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="password" >
-      
-          <button type="submit" class="loginbtn">Log In</button>
-          </div> 
-  
-  
-        <div class="container" style="background-color:#fadadd">
-          <span class="newuser">New user? Click <a href="/register">HERE</a> to register!</span>
+        str += `    <title>Login Page</title>
+        <h1>
+            <meta charset="utf-8">
+            <title>CULT GAIA</title>
+            CULT GAIA
+        </h1>
+        <style>
+            header {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            body {
+                font-family: 'Stan', serif;
+                background-color: rgb(234, 247, 255);
+                background-position: cover;
+                color: black;
+                font-size: 20px;
+                text-align: center;
+            }
+            
+            form {
+                text-align: center;
+            }
+            /* referenced from w3schools*/
+            
+            input[type=text],
+            input[type=password],
+            input[type=email] {
+                text-align: center;
+                font-size: 15px;
+                width: 60%;
+                padding: 10px 20px;
+                margin: 8px 0;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <style>
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: beige;
+                position: -webkit-sticky;
+                /* Safari */
+                position: sticky;
+                top: 0;
+            }
+            
+            li {
+                float: left;
+            }
+            
+            li a {
+                display: block;
+                color: darkgray;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            
+            li a:hover {
+                background-color: bisque;
+            }
+            
+            .active {
+                background-color: beige;
+            }
+        </style>
         </div>
+    
+        <ul>
+    
+            <li><a href="index.html">HOME</a></li>
+            <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+            <li>
+                <a href="registrationPage.html">REGISTER</a>
+            </li>
+            <li><a href="/process_login">LOGIN</a></li>
+        </ul>
+        </div>
+        <br>
+        <p>To continue to purchase page<br> please login or register!</p>
+        <form name="login" action="process_login" method="POST">
+            <div class="login">
+                <div class="username">
+                    <input type="text" placeholder="Username" minlength="4" maxlength="10" name="username" required>
+                </div>
+    
+                <div class="password">
+                    <input type="password" placeholder="Password" id="password" minlength="6" maxlength="12" name="password" required>
+                </div>
+            </div>
+    
+            </div>
+    
+            <button class="login-btn" type="submit" name="submitLogin">Login</button>
+    
         </form>
-  
-        <form action="/logout" method="POST">
-        <button type="submit" class="logoutbtn">Log Out</button>
-  
-        </form>
-  </body>
-  
-  <!-- Login Styling retrieved from https://www.w3schools.com/howto/howto_css_login_form.asp -->
-          <style>
-          body {font-family: Arial, Helvetica, sans-serif;}
-          form {border: 30px solid #ffb6c1;}
-  
-          h1 {
-            text-align: center;
-            margin-top: 3%;
-  
-          }
-          
-          input[type=text], input[type=password] {
-            width: 100%;
-            padding: 15px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-          }
-          
-          .loginbtn, .logoutbtn {
-            background-color: #ffb6c1;
-            color: white;
-            padding: 20px 40px;
-            text-align: center;
-            font-size: 16px;
-            margin-top: 3%;
-            margin-left: 35%;
-            margin-bottom: 3%;
-            width: 30%;
-            cursor: pointer;
-          }
-          
-          .loginbtn:hover {
-            opacity: 0.8;
-          }
-          
-          .container {
-            padding: 60px;
-          }
-          
-          span.psw {
-            float: right;
-            padding-top: 2-px;
-          }
-          </style>
+        <script>
+            login.action += document.location.search; //keeping og data included like another stringify
+        </script>
+    </body>
+    
+    
+    <h2> or create an account here! </h2>
+    
+    <body>
+    
+        <input type="button" name="signUp" value="Click here to register!" onclick="window.location='./registrationPage.html' + document.location.search;">
+    
+    
+    
+    </body>
       `;
         response.send(str);
     }
 });
+
+
 
 app.get("/logout", function(request, response) {
     username = request.cookies['username']; //if you have a username cookie ** workshop comments
@@ -237,7 +279,7 @@ app.post("/process_registration", function(request, response) {
         users_reg_data[fullname].email = POST['email'];
         data = JSON.stringify(users_reg_data); // making varible 
         fs.writeFileSync(filename, data, "utf-8"); // adding to JSON
-        response.redirect('/invoice.html?' + queryString.stringify(RQ)) //redirecting to invoice if correct
+        response.redirect('./invoice') //redirecting to invoice if correct
 
     }
     // reloading page if errors
@@ -256,7 +298,6 @@ app.post("/process_registration", function(request, response) {
 //canceled out because changed purchase to form
 app.post("/process_purchase", function(request, response) {
     POST = request.body;
-
     if (typeof POST['submitPurchase'] != 'undefined') {
         var validQuantities = true; // creating a variable assuming that it'll be true
         var hasQuantities = false
@@ -268,7 +309,7 @@ app.post("/process_purchase", function(request, response) {
         // if all quant are valid go to invoice
         const stringify = queryString.stringify(POST);
         if (validQuantities && hasQuantities) {
-            response.redirect("./loginPage.html?" + stringify); // following A2 reqs must sign in before purchase + data entered
+            response.redirect("./process_loginPage.html?" + stringify); // following A2 reqs must sign in before purchase + data entered
         } else {
             response.redirect("./products_display.html?" + queryString.stringify(POST)); // reload until corrected and alert will show up
         }
@@ -286,13 +327,12 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     <title>CULT GAIA</title>
     <link href="products_style.css" rel="stylesheet"> CULT GAIA
 </h1>
-
     <li><a href="index.html">HOME</a></li>
     <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
     <li>
         <a href="registrationPage.html">REGISTER</a>
     </li>
-    <li><a href="loginPage.html">LOGIN</a></li>
+    <li><a href="/process_login">LOGIN</a></li>
     <li><a href="/display_cart">CART</a></li>
 </ul>
 <br>
@@ -380,7 +420,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     if (grand_total == 0) {
         response.send(`
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" href="./product_style.css"> 
+    <link rel="stylesheet" href="./products_style.css"> 
     <h2>Your cart is empty <br>Please go <a href="./">back</a> and add items to view your cart</h2>`);
     }
 
@@ -389,11 +429,10 @@ app.get("/display_cart", function(request, response, next) { //created to displa
 });
 
 app.post("/display_cart", function(request, response) { // posts data from the display_cart form, with action named "display_cart"
-    var qString = queryString.stringify(POST);
     if (typeof session.username != "undefined") {
-        response.redirect('/invoice'); //changed
+        response.redirect('./invoice'); //changed
     } else {
-        response.redirect('/loginPage.html?'); //changed
+        response.redirect('./process_login'); //changed
 
     }
 });
@@ -515,13 +554,13 @@ app.get("/invoice", function(request, response, next) { //created to generate in
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'stacy_vasquez2000@gmail.com',
-                    pass: 'stacycv'
+                    user: 'cultgaia101@gmail.com',
+                    pass: 'gaiacult11@'
                 }
             });
 
             var mailOptions = {
-                from: 'stacy_vasquez2000@gmail.com',
+                from: 'cultgaia101@gmail.com',
                 to: userInfo['email'],
                 subject: ('Confirmation Order ' + `${userInfo['username']}` + ' - CULT GAIA'),
                 text: 'Thank you for your order. Please shop with us again!'

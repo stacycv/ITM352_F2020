@@ -35,8 +35,8 @@ if (fs.existsSync(filename)) {
 app.post("/process_login", function(request, response) { // process login from POST and redirect to invoice if matches correctly
     POST = request.body; //nicer to look at when writing strings
     RQ = request.query; //nicer to look at when writing strings
-    console.log(RQ);
-    the_username = POST.username.toLowerCase(); //making username case insensititve
+    //console.log(RQ);
+    the_username = POST.name.toLowerCase(); //making username case insensititve
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
         if (users_reg_data[the_username].password == POST.password) {
             RQ.username = the_username;
