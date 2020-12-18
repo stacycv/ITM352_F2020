@@ -19,7 +19,33 @@ var products = data.products; //added dec 14
 // lab 15
 var cookieParser = require('cookie-parser'); // assigns cookieParser variable to require cookie-parser 
 app.use(cookieParser());
+//new
+// add a route to get a cookie that may have been set here
+//Referenced from w3schools, "Javascript Cookies"
+function setCookie(cname, cvalue, exdays) {
+    var visit = new Date();
+    visit.setTime(visit.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + visit.toPSTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=./";
+}
+//Referenced from w3schools "Javascript Cookies"
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodedURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++); {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
+//end of new
 var session = require('express-session'); // assigns session variable to require express-session 
 app.use(session({
     secret: "ITM352 rocks!",
@@ -63,11 +89,11 @@ app.post("/process_login", function(request, response) { // process login from P
             console.log(users_reg_data[RQ.username].username);
             RQ.username = users_reg_data[RQ.username].username
             session.username = the_username
-            var theDate = Date.now();
+            var theDate = new Date();
             session.last_login_time = theDate;
             response.send(` <!--send user a UI personalized message that they are logged in with date/time they logged in + links that lead the user back to shopping or back to cart-->
       <link rel="stylesheet" href="./products_style.css"> 
-      <h2>${the_username} is logged in on ${theDate} <br><br>- Click <a href="./collection_display.html?">here</a> to continue shopping<br>- Click <a href="./display_cart">here</a> to go back to cart</h2>
+      <h2>Hi <font color="red">${users_reg_data[the_username].name}</font>! You are now logged in as of ${theDate} <br><br>- Click <a href="./collection_display.html?">here</a> to continue shopping<br>- Click <a href="./display_cart">here</a> to go back to cart</h2>
       `) // this was above style sheet 69 but am seeing if its actually needed <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
                 // response.redirect('./process_login?' + quantityQuery_str + `&username=${the_username}`); **small changes
                 // response.redirect('/invoice.html?' + queryString.stringify(RQ)); **cancel to add above code
@@ -101,9 +127,9 @@ app.get("/process_login", function(request, response) { //created to display log
 
         if (session.username != undefined) { // if sessions username is not undefined, send a UI personalized user message that lets them know their login was successful, the time & date they logged in, and tells them to go back to shop (if login link in navbar is clicked again after successfully logging in, this message will help prevent them from logging in more than once )
             str += `<h1>Hello ${session.username}! You are already logged in<br><p style="color:red"> Please Go Back to Shop</p><br>_______________________________________</h1> `
-        }
+        } else {
 
-        str += `    <title>Login Page</title>
+            str += `    <title>Login Page</title>
         <h1>
             <meta charset="utf-8">
             <title>CULT GAIA</title>
@@ -222,6 +248,7 @@ app.get("/process_login", function(request, response) { //created to display log
     
     </body>
       `;
+        }
         response.send(str);
     }
 });
@@ -412,9 +439,9 @@ app.post("/process_registration", function(request, response) {
     // reference from lab 15
     if (errors.length == 0) {
         console.log('No errors found. Valid log-in');
-        var fullname = POST["name"];
+        var fullname = POST["fullname"];
         users_reg_data[fullname] = {}; // saving fullname as array name
-        users_reg_data[fullname].username = POST["username"];
+        users_reg_data[fullname].username = POST["name"];
         users_reg_data[fullname].password = POST['password'];
         users_reg_data[fullname].email = POST['email'];
         data = JSON.stringify(users_reg_data); // making varible 
@@ -422,7 +449,7 @@ app.post("/process_registration", function(request, response) {
         quantityQuery_str = queryString.stringify(quantity_str);
         response.send(`
         <link rel="stylesheet" href="./products_style.css"> 
-        <h2>New user ${reguser} registered<br><br> Click <a href="./process_login">here</a> to log into your new account`);
+        <h2>Hi <font color="red">${fullname}</font>! Thank you for registering<br><br> Click <a href="./process_login">here</a> to log into your new account`);
         response.redirect('./invoice'); // redirects user to their cart upon successful registration, requiring them to log in with new account info to gain access to purchase items in their cart
 
     }
@@ -451,8 +478,9 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     <h1>
     <meta charset="utf-8">
     <title>CULT GAIA</title>
-    <link href="products_style.css" rel="stylesheet"> CULT GAIA
+    <link href="products_style.css" rel="stylesheet"> CULT GAIA <br> <h2> ----- Cart ----- </h2>
 </h1>
+<ul>
     <li><a href="index.html">HOME</a></li>
     <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
     <li>
@@ -461,7 +489,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     <li><a href="/process_login">LOGIN</a></li>
 </ul>
 <br>
-  
+  <br>
   
   </header>`
 
@@ -493,7 +521,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
   
       <body>     
       <form action="/display_cart" method="POST">
-  
+  <br>
       <div class="shop-item">
       <!--List the product names-->
               <h4><span class="shop-item-title">${products[product_type][i]["name"]}</span>
@@ -565,8 +593,7 @@ app.get("/invoice", function(request, response, next) { //created to generate in
     str += `
     
     <header>
-    <link rel="stylesheet" href="./invoice_style.css">
-    <h1>CULT GAIA<br>----- Invoice -----</h1> 
+    <link href="invoice_style.css" rel="stylesheet"> <h1>CULT GAIA</h1><h2> ----- Invoice ----- </h2>
   
   </header>`
     if (session.username != undefined) { // if session username is not undefined
@@ -678,7 +705,7 @@ app.get("/invoice", function(request, response, next) { //created to generate in
                 auth: {
                     user: 'cultgaia101@gmail.com',
                     pass: 'gaiacult11@'
-                }
+                },
             });
 
             var mailOptions = {
