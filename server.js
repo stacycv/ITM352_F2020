@@ -217,7 +217,7 @@ app.post("/process_registration", function(request, response) {
     // checking if passwords match
     if (POST.password !== POST.repeat_password) { //if it doesnt match previously entered password
         console.log('Passssswords do not match');
-        response.redirect('registrationPage.html?' + queryString.stringify(POST)) //reloading page instead of heading to invoice
+        response.redirect('process_registration' + queryString.stringify(POST)) //reloading page instead of heading to invoice
 
     }
     // if no errors go to invoice 
@@ -243,7 +243,7 @@ app.post("/process_registration", function(request, response) {
         RQ.repeat_password = POST.repeat_password;
         RQ.email = POST.email;
         RQ.errors = errors.join(' ; '); //if multiple errors, list them next to eachother
-        response.redirect('/registrationPage.html?' + queryString.stringify(POST)) //keep reloading page until corrected
+        response.redirect('/process_registration' + queryString.stringify(POST)) //keep reloading page until corrected
     }
 }); // added registration
 /*
@@ -284,7 +284,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     <li><a href="index.html">HOME</a></li>
     <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
     <li>
-        <a href="registrationPage.html">REGISTER</a>
+        <a href="process_registration">REGISTER</a>
     </li>
     <li><a href="loginPage.html">LOGIN</a></li>
     <li><a href="/display_cart">CART</a></li>

@@ -66,10 +66,9 @@ app.post("/process_login", function(request, response) { // process login from P
             var theDate = Date.now();
             session.last_login_time = theDate;
             response.send(` <!--send user a UI personalized message that they are logged in with date/time they logged in + links that lead the user back to shopping or back to cart-->
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
       <link rel="stylesheet" href="./products_style.css"> 
-      <h2>${the_username} is logged in on ${theDate} <br><br>- Click <a href="./">here</a> to continue shopping<br>- Click <a href="./display_cart">here</a> to go back to cart</h2>
-      `)
+      <h2>${the_username} is logged in on ${theDate} <br><br>- Click <a href="./collection_display.html?">here</a> to continue shopping<br>- Click <a href="./display_cart">here</a> to go back to cart</h2>
+      `) // this was above style sheet 69 but am seeing if its actually needed <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
                 // response.redirect('./process_login?' + quantityQuery_str + `&username=${the_username}`); **small changes
                 // response.redirect('/invoice.html?' + queryString.stringify(RQ)); **cancel to add above code
             return; //redirect to the invoice if valid
@@ -194,11 +193,11 @@ app.get("/process_login", function(request, response) { //created to display log
         <form name="login" action="process_login" method="POST">
             <div class="login">
                 <div class="username">
-                    <input type="text" placeholder="Username" minlength="4" maxlength="10" name="username" required>
+                    <input type="text" placeholder="Username" minlength="4" maxlength="30" name="username" required>
                 </div>
     
                 <div class="password">
-                    <input type="password" placeholder="Password" id="password" minlength="6" maxlength="12" name="password" required>
+                    <input type="password" placeholder="Password" id="password" minlength="6" maxlength="30" name="password" required>
                 </div>
             </div>
     
@@ -235,7 +234,159 @@ app.get("/logout", function(request, response) {
     response.clearCookie('username').send(`logged out! ${username}`);
 });
 
+app.get("/process_registration", function(request, response) { // created to generate registration page
+    // Give a simple register form
+    str = `
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration Page</title>
+    <h1>
+        <meta charset="utf-8">
+        <title>CULT GAIA</title>
+        CULT GAIA
+    </h1>
+    <style>
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        body {
+            font-family: 'Stan', serif;
+            background-color: rgb(234, 247, 255);
+            background-position: cover;
+            color: black;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        form {
+            text-align: center;
+        }
+        /* referenced from w3schools*/
+        
+        input[type=text],
+        input[type=password],
+        input[type=email] {
+            text-align: center;
+            font-size: 15px;
+            width: 60%;
+            padding: 10px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
 
+<body>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: beige;
+            position: -webkit-sticky;
+            /* Safari */
+            position: sticky;
+            top: 0;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: darkgray;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: bisque;
+        }
+        
+        .active {
+            background-color: beige;
+        }
+    </style>
+    </div>
+    <link href="products_style.css" rel="stylesheet">
+    <div class="dropdown">
+        <button class="active" href="collection_display.html">Shop by collection</button>
+        <div class="dropdown-content" width="100%">
+            <li><a href="spring2020.html">Spring 2020</a></li>
+            <li><a href="summer2020.html">Summer 2020</a></li>
+            <li><a href="fall2020.html">Fall 2020</a></li>
+            <li><a href="resort2021.html">Resort 2021</a></li>
+        </div>
+        <div class="log">
+            <button class="active" href="/logout">logout</button>
+        </div>
+    </div>
+    <ul>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="registrationPage.html">REGISTER</a></li>
+        <li><a href="/process_login">LOGIN</a></li>
+    </ul>
+    <br>
+    </div>
+    <br>
+    <header>
+        Join the cult
+    </header>
+    <div>
+        <script>
+            registration.action += document.location.search;
+            //NEW CODE BEING ADDED REFERENCED FROM ALVIN-->
+
+            function validate() { //function validate their passwords upon submission
+                let password = document.getElementById("password").value; //setting variables
+                let repeat_password = document.getElementById("repeat_password").value; //setting variables
+                if (password == repeat_password) //if passwords match
+                    document.getElementbyID("registration").submit(); //process registration POST
+                else { //if they do not match
+                    alert("Passwords do not match!"); //send an alert that they dont match
+                }
+            }
+
+            //END OF NEW CODE REFERENCED FROM ALVIN-->
+        </script>
+        <form action="/process_registration" method="POST" class="form" name="registration">
+            <!-- sets the action and method-->
+
+            <div class="registration">
+                <div class="name">
+                    <input type="text" placeholder="First & Last Name" minlength="4" maxlength="30" name="name" required />
+                </div>
+                <div class="username">
+                    <input type="text" placeholder="Username" minlength="8" maxlength="20" name="username" required />
+                </div>
+
+                <div class="email">
+                    <input type="email" placeholder="Email" minlength="4" name="email" required />
+                </div>
+                <div class="password">
+                    <input type="password" placeholder="Password" id="password" minlength="8" name="password" required />
+                </div>
+                <div class="repeat_password">
+                    <input type="password" placeholder="Re-enter Password" id="repeat_password" minlength="8" name="repeat_password" required />
+                </div>
+            </div>
+            <button <input type="submit" id="submit" onclick="validate()">Sign me up!
+              </button>
+        </form>
+        <script>
+            registration.action += document.location.search;
+        </script>
+    </div>
+</body>
+`;
+    response.send(str);
+});
 app.post("/process_registration", function(request, response) {
     POST = request.body; //easier and faster to write, plus matches throughout the server
     RQ = request.query; //easier and fast to write, plus matches throughout the server
@@ -270,7 +421,7 @@ app.post("/process_registration", function(request, response) {
     }
     // if no errors go to invoice 
     // reference from lab 15
-    if (errors == 0) {
+    if (errors.length == 0) {
         console.log('No errors found. Valid log-in');
         var fullname = POST["name"];
         users_reg_data[fullname] = {}; // saving fullname as array name
@@ -279,11 +430,15 @@ app.post("/process_registration", function(request, response) {
         users_reg_data[fullname].email = POST['email'];
         data = JSON.stringify(users_reg_data); // making varible 
         fs.writeFileSync(filename, data, "utf-8"); // adding to JSON
-        response.redirect('./invoice') //redirecting to invoice if correct
+        quantityQuery_str = queryString.stringify(quantity_str);
+        response.send(`
+        <link rel="stylesheet" href="./products_style.css"> 
+        <h2>New user ${reguser} registered<br><br> Click <a href="./process_login">here</a> to log into your new account`);
+        response.redirect('./invoice'); // redirects user to their cart upon successful registration, requiring them to log in with new account info to gain access to purchase items in their cart
 
     }
     // reloading page if errors
-    if (errors > 0) { // if errors then
+    if (errors.length > 0) { // if errors then
         console.log(errors) //send information
         RQ.name = POST.name;
         RQ.username = POST.username;
@@ -292,31 +447,13 @@ app.post("/process_registration", function(request, response) {
         RQ.email = POST.email;
         RQ.errors = errors.join(' ; '); //if multiple errors, list them next to eachother
         response.redirect('/registrationPage.html?' + queryString.stringify(POST)) //keep reloading page until corrected
+
+    } else {
+        response.end(JSON.stringify(errs)); // everything else, stringify errs
+        console.log(errs) // log errs into the console
     }
 }); // added registration
-/*
-//canceled out because changed purchase to form
-app.post("/process_purchase", function(request, response) {
-    POST = request.body;
-    if (typeof POST['submitPurchase'] != 'undefined') {
-        var validQuantities = true; // creating a variable assuming that it'll be true
-        var hasQuantities = false
-        for (i = 0; i < products.length; i++) {
-            qty = POST[`quantity${i}`];
-            hasQuantities = validQuantities || qty > 0; // allowed if > than 0
-            validQuantities = hasQuantities && isNonNegInt(qty);
-        }
-        // if all quant are valid go to invoice
-        const stringify = queryString.stringify(POST);
-        if (validQuantities && hasQuantities) {
-            response.redirect("./process_loginPage.html?" + stringify); // following A2 reqs must sign in before purchase + data entered
-        } else {
-            response.redirect("./products_display.html?" + queryString.stringify(POST)); // reload until corrected and alert will show up
-        }
-    }
-}); */
 
-//reference kydee
 app.get("/display_cart", function(request, response, next) { //created to display items in the shopping cart
     console.log(request.session.cart); //log the session cart data into the console
     var str = "";
@@ -419,13 +556,11 @@ app.get("/display_cart", function(request, response, next) { //created to displa
   </form>`
     if (grand_total == 0) {
         response.send(`
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
     <link rel="stylesheet" href="./products_style.css"> 
-    <h2>Your cart is empty <br>Please go <a href="./">back</a> and add items to view your cart</h2>`);
+    <h2>Your cart is empty <br>Please go <a href="./collection_display.html?">back</a> and add items to view your cart</h2>`);
     }
 
     response.send(str);
-
 });
 
 app.post("/display_cart", function(request, response) { // posts data from the display_cart form, with action named "display_cart"
@@ -448,7 +583,7 @@ app.get("/invoice", function(request, response, next) { //created to generate in
   
   </header>`
     if (session.username != undefined) { // if session username is not undefined
-        str += `<h3><p style="color:red">Thank you for you purchase ${session.username}! </p></h3>` // generate UI thank you message for user if they are logged in
+        str += `<h3><p style="color:red">Thank you for your purchase ${session.username}! </p></h3>` // generate UI thank you message for user if they are logged in
 
         //variabes created to keep track of extended price, subtotal, tax rate and shipping costs
         extended_price = 0;
