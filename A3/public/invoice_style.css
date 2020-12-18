@@ -19,12 +19,12 @@ h1 {
     text-align: center;
     /* Title Page */
     font-size: 50px;
-    color: white;
+    color: black;
     /* took from product_style.css layout */
 }
 
-h4 {
-    font-size: 20px;
+h3 {
+    font-size: 15px;
     color: BLACK;
 }
 

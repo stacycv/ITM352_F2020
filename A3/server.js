@@ -183,7 +183,7 @@ app.get("/process_login", function(request, response) { //created to display log
             <li><a href="index.html">HOME</a></li>
             <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
             <li>
-                <a href="registrationPage.html">REGISTER</a>
+                <a href="/process_registration">REGISTER</a>
             </li>
             <li><a href="/process_login">LOGIN</a></li>
         </ul>
@@ -216,7 +216,7 @@ app.get("/process_login", function(request, response) { //created to display log
     
     <body>
     
-        <input type="button" name="signUp" value="Click here to register!" onclick="window.location='./registrationPage.html' + document.location.search;">
+        <input type="button" name="signUp" value="Click here to register!" onclick="window.location='./process_registration' + document.location.search;">
     
     
     
@@ -315,22 +315,11 @@ app.get("/process_registration", function(request, response) { // created to gen
     </style>
     </div>
     <link href="products_style.css" rel="stylesheet">
-    <div class="dropdown">
-        <button class="active" href="collection_display.html">Shop by collection</button>
-        <div class="dropdown-content" width="100%">
-            <li><a href="spring2020.html">Spring 2020</a></li>
-            <li><a href="summer2020.html">Summer 2020</a></li>
-            <li><a href="fall2020.html">Fall 2020</a></li>
-            <li><a href="resort2021.html">Resort 2021</a></li>
-        </div>
-        <div class="log">
-            <button class="active" href="/logout">logout</button>
-        </div>
-    </div>
     <ul>
-        <li><a href="index.html">HOME</a></li>
-        <li><a href="registrationPage.html">REGISTER</a></li>
-        <li><a href="/process_login">LOGIN</a></li>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="/collection_display.html?">SHOP BY COLLECTION</a></li>
+    <li><a href="/process_registration">REGISTER</a></li>
+    <li><a href="/process_login">LOGIN</a></li>
     </ul>
     <br>
     </div>
@@ -392,7 +381,7 @@ app.post("/process_registration", function(request, response) {
     RQ = request.query; //easier and fast to write, plus matches throughout the server
     console.log(POST); //logging the requested body
     var errors = []; //to reference errors
-    // errors below will tell the console what is invalid. The user will see it up front via registrationPage.html
+    // errors below will tell the console what is invalid. The user will see it up front via process_registration
     if (/[A-Za-z]+$/.test(POST.name)) {} else { //if it does not match, console will read..
         console.log('name must be letters only') //letting them know only letters are allowed
     }
@@ -416,7 +405,7 @@ app.post("/process_registration", function(request, response) {
     // checking if passwords match
     if (POST.password !== POST.repeat_password) { //if it doesnt match previously entered password
         console.log('Passssswords do not match');
-        response.redirect('registrationPage.html?' + queryString.stringify(POST)) //reloading page instead of heading to invoice
+        response.redirect('/process_registration?' + queryString.stringify(POST)) //reloading page instead of heading to invoice
 
     }
     // if no errors go to invoice 
@@ -446,7 +435,7 @@ app.post("/process_registration", function(request, response) {
         RQ.repeat_password = POST.repeat_password;
         RQ.email = POST.email;
         RQ.errors = errors.join(' ; '); //if multiple errors, list them next to eachother
-        response.redirect('/registrationPage.html?' + queryString.stringify(POST)) //keep reloading page until corrected
+        response.redirect('/process_registration?' + queryString.stringify(POST)) //keep reloading page until corrected
 
     } else {
         response.end(JSON.stringify(errs)); // everything else, stringify errs
@@ -467,16 +456,14 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     <li><a href="index.html">HOME</a></li>
     <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
     <li>
-        <a href="registrationPage.html">REGISTER</a>
+        <a href="/process_registration">REGISTER</a>
     </li>
     <li><a href="/process_login">LOGIN</a></li>
-    <li><a href="/display_cart">CART</a></li>
 </ul>
 <br>
   
   
-  </header>
-  <h2> Cart </h2>`
+  </header>`
 
 
     if (session.username != undefined) {
@@ -509,7 +496,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
   
       <div class="shop-item">
       <!--List the product names-->
-              <h4><span class="shop-item-title">${products[product_type][i]["product"]}</span>
+              <h4><span class="shop-item-title">${products[product_type][i]["name"]}</span>
               <hr class="space" />
               <!--Show the images of each product-->
               <div class="enlarge">
@@ -557,7 +544,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     if (grand_total == 0) {
         response.send(`
     <link rel="stylesheet" href="./products_style.css"> 
-    <h2>Your cart is empty <br>Please go <a href="./collection_display.html?">back</a> and add items to view your cart</h2>`);
+    <h2>Your cart is empty <br><br>Please go <a href="./collection_display.html?">back</a> and add items to view your cart</h2>`);
     }
 
     response.send(str);
@@ -576,9 +563,9 @@ app.get("/invoice", function(request, response, next) { //created to generate in
     console.log(request.session.cart); //log the session cart data into the console
     var str = "";
     str += `
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" href="./invoice_style.css">
+    
     <header>
+    <link rel="stylesheet" href="./invoice_style.css">
     <h1>CULT GAIA<br>----- Invoice -----</h1> 
   
   </header>`
