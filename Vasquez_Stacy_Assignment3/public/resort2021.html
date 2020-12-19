@@ -81,8 +81,21 @@ The purpose is to let the customers purchase their desired products and not let 
                     <li><a href="summer2020.html">SUMMER 2020</a></li>
                     <li><a href="fall2020.html">FALL 2020</a></li>
                     <li><a class="active" href="/process_registration">REGISTER</a></li>
-                    <li><a class="active" href="/process_login">LOGIN</a></li>
-                    <li><a class="active" href="/display_cart">CART</a></li>
+                    <li><a class="active" href="/process_login">LOG IN/OUT</a></li>
+                    <li>
+                        <a class="active" href="/display_cart">
+                            <script>
+                                var cart = sessionStorage.length;
+                                if (cart > 0) {
+                                    document.write(`
+                                            CART(${cart})</p>
+                                        `)
+                                } else {
+                                    document.write(`CART()`)
+                                };
+                            </script>
+                        </a>
+                    </li>
             </ul>
             </header>
             <br>

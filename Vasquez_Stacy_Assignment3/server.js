@@ -95,7 +95,7 @@ app.get("/process_login", function(request, response) { //created to display log
       <form action="/process_login" method="POST">`
 
         if (session.username != undefined) { // if sessions username is not undefined, send a UI personalized user message that lets them know their login was successful, the time & date they logged in, and tells them to go back to shop (if login link in navbar is clicked again after successfully logging in, this message will help prevent them from logging in more than once )
-            str += `<br><br><h1>Hello ${session.username}! Looking to logout? <br><p style="color:red"> Please Go Back to Shop</p><br> If you would like to logout, please click <a href="./logout">here</a><br><br><h1>_______________________________________</h1> `
+            str += `<br><br><h1>Hello <font style="color:red">${session.username}</font>! Looking to logout? <br><br> If so, please click <a href="./logout">here</a><br><br><h1>_______________________________________</h1> `
         } else {
 
             str += `    <title>Login Page</title>
@@ -231,12 +231,14 @@ app.get("/logout", function(request, response) {
     <meta charset="utf-8">
     <title>CULT GAIA</title>
     CULT GAIA
-</h1><br><br><h1>Thank you for shopping with us <font color="red">${username}!</font> You've successfully been logged out<h1>
+</h1><br><br><h1>Thank you for shopping with us!</font> You've successfully been logged out<h1>
   <body>
   <link rel="stylesheet" href="./products_style.css"> 
   <br>
   Click <a href="./">here</a> to go back to home page`
     response.clearCookie('username').send(str); //thanks the user personally and also gives directory to home page
+    request.session.destroy(); // after invoice is sent, customer session is destroyed and cart is cleared but still lets them log out to feel like a real store
+    session.username = undefined; // session username becomes undefined, clearing UI messages
 });
 
 //moved into server so that it could read with session
@@ -713,8 +715,7 @@ app.get("/invoice", function(request, response, next) { //created to generate in
 
             str += `<h2>Thank you for your order!<br>Your invoice was sent to ${userInfo['email']}</h2> <br><br>
             Click here to <a href="./logout">logout`
-            request.session.destroy(); // after invoice is sent, customer session is destroyed and cart is cleared but still lets them log out to feel like a real store
-            session.username = undefined; // session username becomes undefined, clearing UI messages
+
 
 
         }
