@@ -9,6 +9,22 @@ The purpose is to let the customers purchase their desired products and not let 
 </script>
 <script>
     var product_type = "fall2020"; // allows access to array
+    //function used from w3schools.com 
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie); //decode the cookie
+        var ca = decodedCookie.split(';'); //split up string by ';'
+        for (var i = 0; i < ca.length; i++) { //split up
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    };
     //Referenced from assignment 1 examples
     function isNonNegInt(amount, return_errors = false) {
         errors = []; // assuming no errors
@@ -101,6 +117,13 @@ The purpose is to let the customers purchase their desired products and not let 
             <br>
             <main>
                 <script>
+                    var theUser = getCookie('name'); //looking for cookie name
+                    if (theUser != undefined) { //if name can be found
+                        document.write(`You are logged in!<br> `); // let user know their logged in
+                    } else {
+                        document.write(
+                                `Be sure to log in!<br> `) //if not, let user know to be sure to log in
+                    };
                     document.write("SHOPPING FALL 2020");
                     //all referenced from assignment 1 screencast & changing footer to load to cart + specifing what array
                     for (i = 0; i < fall2020.length; i++) {
