@@ -1,12 +1,12 @@
 /*
-Stacy Vasquez's Assignment 2 server 12/15/2020
+Stacy Vasquez's Assignment 2 server 12/18/2020
 A1 - referenced from multiple individuals in class, assign 1 screencast, lab 13, and used ricks recommendation when looking over
 A2 - copied Stacy Vasquez's A1, referenced Sharon Diep for console logs, edited to fix for feedback on A2
-A3 - fixed login errors 
-The purpose of the server is to connect and process the information throughout my e-commerce website TRUE-Empress
+A3 - fixed login errors, referenced from WW3 school, Flavoscopes, A3 examples, workshop, Kylie Dee, Sharon Diep, and Melanie Yang
+The purpose of the server is to connect and process the information throughout my e-commerce website Cult Gaia
 */
 var data = require('./public/products_data.js'); //must have data from product_data.js
-var products = data.products;
+var products = data.products; //defining product within data
 const queryString = require('query-string'); // so it'll load querystring
 var filename = './user_data.json'; // A2 new
 var fs = require('fs'); //Loading file system
@@ -14,38 +14,11 @@ var express = require('express'); //server requires express to run
 var app = express(); // run the express function and start express
 var myParser = require("body-parser");
 var quantity_str; // A3 new
-var products = data.products; //added dec 14
 
 // lab 15
 var cookieParser = require('cookie-parser'); // assigns cookieParser variable to require cookie-parser 
 app.use(cookieParser());
-//new
-// add a route to get a cookie that may have been set here
-//Referenced from w3schools, "Javascript Cookies"
-function setCookie(cname, cvalue, exdays) {
-    var visit = new Date();
-    visit.setTime(visit.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + visit.toPSTString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=./";
-}
-//Referenced from w3schools "Javascript Cookies"
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodedURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++); {
-        var c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 
-//end of new
 var session = require('express-session'); // assigns session variable to require express-session 
 app.use(session({
     secret: "ITM352 rocks!",
@@ -53,13 +26,13 @@ app.use(session({
     saveUninitialized: true
 }));
 
+
 // Retrieved from Professor Port's Assignment 1 Example
 // Uses function to check if string is a non-negative integer
 app.all('*', function(request, response, next) {
     console.log(request.method + ' to ' + request.path); // Logs request method and path to the console;
     next();
 });
-//end of new code
 
 app.use(myParser.urlencoded({ extended: true })); //get data in the body
 //to process the response from what is typed in the form
@@ -78,25 +51,20 @@ app.post("/process_login", function(request, response) { // process login from P
     POST = request.body; //nicer to look at when writing strings
     RQ = request.query; //nicer to look at when writing strings
     console.log(RQ);
-    //added from kydee
     var the_username = POST.username; // sets login_username to whatever username was entered on page
-    quantityQuery_str = queryString.stringify(quantity_str);
-    //end of kydee
+    quantityQuery_str = queryString.stringify(quantity_str); //strings query together
     the_username = POST.username.toLowerCase(); //making username case insensititve
     if (typeof users_reg_data[the_username] != 'undefined') { //ask the object if it has matching username or leaving it as undefined
         if (users_reg_data[the_username].password == POST.password) {
             RQ.username = the_username;
             console.log(users_reg_data[RQ.username].username);
             RQ.username = users_reg_data[RQ.username].username
-            session.username = the_username
-            var theDate = new Date();
-            session.last_login_time = theDate;
+            session.username = the_username //making universal refernce  so the_username will be the sessions username stored w cookie
+            var theDate = new Date(); //date stated everytime logged in
             response.send(` <!--send user a UI personalized message that they are logged in with date/time they logged in + links that lead the user back to shopping or back to cart-->
       <link rel="stylesheet" href="./products_style.css"> 
       <h2>Hi <font color="red">${users_reg_data[the_username].name}</font>! You are now logged in as of ${theDate} <br><br>- Click <a href="./collection_display.html?">here</a> to continue shopping<br>- Click <a href="./display_cart">here</a> to go back to cart</h2>
-      `) // this was above style sheet 69 but am seeing if its actually needed <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
-                // response.redirect('./process_login?' + quantityQuery_str + `&username=${the_username}`); **small changes
-                // response.redirect('/invoice.html?' + queryString.stringify(RQ)); **cancel to add above code
+      `)
             return; //redirect to the invoice if valid
         } else { //letting them know exactly whats wrong with the information entered (username is listed in this one because it is existant)
             response.send(`The password entered is not valid for the following username</br> 
@@ -116,17 +84,18 @@ app.post("/process_login", function(request, response) { // process login from P
 
 //moved login page here so the cookie with be included
 app.get("/process_login", function(request, response) { //created to display login page
-    console.log(request.query); // print out q-str
+    console.log(request.query); // print out quantity string
     if (typeof request.cookies['username'] != 'undefined') {
         str = `Welcome ${request.cookies['name']}!`
     } else {
         quantity_str = request.query;
         str = `
   <body>
+  <link rel="stylesheet" href="./products_style.css"> 
       <form action="/process_login" method="POST">`
 
         if (session.username != undefined) { // if sessions username is not undefined, send a UI personalized user message that lets them know their login was successful, the time & date they logged in, and tells them to go back to shop (if login link in navbar is clicked again after successfully logging in, this message will help prevent them from logging in more than once )
-            str += `<h1>Hello ${session.username}! You are already logged in<br><p style="color:red"> Please Go Back to Shop</p><br>_______________________________________</h1> `
+            str += `<br><br><h1>Hello ${session.username}! You are already logged in<br><p style="color:red"> Please Go Back to Shop</p><br> If you would like to logout, please click <a href="./logout">here</a><br><br><h1>_______________________________________</h1> `
         } else {
 
             str += `    <title>Login Page</title>
@@ -254,13 +223,23 @@ app.get("/process_login", function(request, response) { //created to display log
 });
 
 
-
+//refernece https://flaviocopes.com/express-cookies/ with the help of Dport A3 workshop
 app.get("/logout", function(request, response) {
     username = request.cookies['username']; //if you have a username cookie ** workshop comments
-    //refernece https://flaviocopes.com/express-cookies/ 
-    response.clearCookie('username').send(`logged out! ${username}`);
+
+    str = ` <h1>
+    <meta charset="utf-8">
+    <title>CULT GAIA</title>
+    CULT GAIA
+</h1><br><br><h1>Thank you for shopping with us <font color="red">${username}!</font> You've successfully been logged out<h1>
+  <body>
+  <link rel="stylesheet" href="./products_style.css"> 
+  <br>
+  Click <a href="./">here</a> to go back to home page`
+    response.clearCookie('username').send(str); //thanks the user personally and also gives directory to home page
 });
 
+//moved into server so that it could read with session
 app.get("/process_registration", function(request, response) { // created to generate registration page
     // Give a simple register form
     str = `
@@ -470,9 +449,27 @@ app.post("/process_registration", function(request, response) {
     }
 }); // added registration
 
+
+
 app.get("/display_cart", function(request, response, next) { //created to display items in the shopping cart
     console.log(request.session.cart); //log the session cart data into the console
     var str = "";
+    //mod button functions referenced from sharon diep 
+    function addItem(theProduct, theIndex) { //function to increase that row's tour amount by 1
+        var this_product_quantity = parseInt(request.session.setItem(`${theProduct}${theIndex}`)); //parse it
+        this_product_quantity += 1; //add 1 to number
+        request.session.setItem(`${theProduct}${theIndex}`, this_product_quantity);
+        window.location.reload(); //reload page to show changes in cart
+    };
+
+    function removeItem(theProduct, theIndex) { //function to increase that row's tour amount by 1
+        var this_product_quantity = parseInt(equest.session.setItem(`${theProduct}${theIndex}`)); //parse it
+        if (this_product_quantity > 0) { //if it is greater than 0, enable subtract to avoid neg values
+            this_product_quantity -= 1; //subtract 1
+            request.session.setItem(`${theProduct}${theIndex}`, this_product_quantity); //add new value to session
+            window.location.reload(); //reload page to show changes
+        }
+    };
     str += `
     <header>
     <h1>
@@ -493,8 +490,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
   
   </header>`
 
-
-    if (session.username != undefined) {
+    if (session.username != undefined) { // if user has logged in it will display on the cart saying so 
         str += `<h3> <p style="color:red">Welcome ${session.username}! You are currently logged in. </p></h3> <!--UI message for user if they are logged in-->`
     }
 
@@ -516,11 +512,14 @@ app.get("/display_cart", function(request, response, next) { //created to displa
             extended_price = products[product_type][i]["price"] * q;
             subtotal += extended_price;
             //this string will be posted on the cart page
+
             str += `
      
   
       <body>     
+      
       <form action="/display_cart" method="POST">
+    
   <br>
       <div class="shop-item">
       <!--List the product names-->
@@ -533,6 +532,11 @@ app.get("/display_cart", function(request, response, next) { //created to displa
               <!--Show the quantity of each product-->
               <hr class="space" />
               <label id="quantity${i}_label" class="shop-item-quantity">Quantity: ${q}</label>
+              <div align="right" width="43%"><button <input type="modify" value="Modify Quantity" onclick="addItem()"> Modify Quantity
+              </button> <button <input type="remove" value="Remove" onclick="removeItem()" >Remove
+              </button></div>
+              
+                       
               <div class="shop-item-details">
               <!--List the prices and extended prices-->
                   <hr class="space" />
@@ -561,10 +565,11 @@ app.get("/display_cart", function(request, response, next) { //created to displa
     str += ` 
     <form action="/display_cart" method="POST">
     <footer>
+    <h2> <font color="black">
     <div class="shop-item-description">Subtotal: $${subtotal.toFixed(2)}</div>
     <div class="shop-item-description">Shipping: $${shipping.toFixed(2)}</div>
     <div class="shop-item-description">Tax: $${tax.toFixed(2)}</div>
-    <div class="shop-item-description">Grandtotal: $${grand_total.toFixed(2)}</div>
+    <div class="shop-item-description">Grandtotal: $${grand_total.toFixed(2)}</div></font></h2>
   
     <input type="submit" value="Checkout Cart!" name="submit_cart">
   </footer>
@@ -597,7 +602,7 @@ app.get("/invoice", function(request, response, next) { //created to generate in
   
   </header>`
     if (session.username != undefined) { // if session username is not undefined
-        str += `<h3><p style="color:red">Thank you for your purchase ${session.username}! </p></h3>` // generate UI thank you message for user if they are logged in
+        str += `<h2><p style="color:red">Thank you for your purchase ${session.username}! </p></h2>` // generate UI thank you message for user if they are logged in
 
         //variabes created to keep track of extended price, subtotal, tax rate and shipping costs
         extended_price = 0;
@@ -629,7 +634,7 @@ app.get("/invoice", function(request, response, next) { //created to generate in
                 //this string posts item submitted from cart on the invoice page
                 str += ` 
         <tr>
-          <td width="43%">${products[product_type][i]["product"]}</td> 
+          <td width="43%">${products[product_type][i]["name"]}</td> 
           <td align="center" width="11%">${q}</td>
           <td width="13%">\$${products[product_type][i]["price"]}</td>
           <td width="54%">\$${extended_price}</td>
@@ -689,33 +694,33 @@ app.get("/invoice", function(request, response, next) { //created to generate in
   `;
         if (grand_total == 0) { //if grand_total = 0, cart must be empty so send them a response saying that no invoice was generated
             response.send(` 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
     <link rel="stylesheet" href="./invoice_style.css"> 
     <h2>No invoice was generated <br>Please go <a href="./">back</a>, add items to your cart, log into your account, & submit purchase to receive invoice</h2>`);
-        } else { //else, send the invoice to email
-            //code here to send variable str to email
+        } else {
 
-            //sends an email to the users' email, retrieved from https://www.w3schools.com/nodejs/nodejs_email.asp
+            //sends an email to the users' email, retrieved from https://www.w3schools.com/nodejs/nodejs_email.asp and A3 examples
+            var userInfo = users_reg_data[session.username]; //connecting session to userdata
+            var nodemailer = require('nodemailer'); //needed
 
-            var userInfo = users_reg_data[session.username];
-            var nodemailer = require('nodemailer');
-
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'cultgaia101@gmail.com',
-                    pass: 'gaiacult11@'
-                },
+            var transporter = nodemailer.createTransport({ //create the transporter variable
+                host: 'mail.hawaii.edu', //note on itmvm webserver have to use the mail from hawaii.edu
+                port: 25,
+                secure: false, //use tls
+                tls: {
+                    //do not fail on invalid certs
+                    rejectUnauthorized: false
+                }
             });
 
             var mailOptions = {
-                from: 'cultgaia101@gmail.com',
-                to: userInfo['email'],
+                from: 'cultgaia101@gmail.com', //made email for cult gaia
+                to: userInfo['email'], //find user's email in array and send to them
                 subject: ('Confirmation Order ' + `${userInfo['username']}` + ' - CULT GAIA'),
-                text: 'Thank you for your order. Please shop with us again!'
+                text: 'Thank you for your order. Please shop with us again!',
+                html: str, //string returns as html
             };
 
-            transporter.sendMail(mailOptions, function(error, info) {
+            transporter.sendMail(mailOptions, function(error, info) { // consoling a confirmation if the email was sent
                 if (error) {
                     console.log(error);
                 } else {
@@ -723,17 +728,18 @@ app.get("/invoice", function(request, response, next) { //created to generate in
                 }
             });
 
-            str += `<h1>Thank you for your order!<br>Your invoice was sent to ${userInfo['email']}</h1>`
-            request.session.destroy(); // after invoice is sent, customer session is destroyed and cart is cleared
+            str += `<h2>Thank you for your order!<br>Your invoice was sent to ${userInfo['email']}</h2> <br><br>
+            Click here to <a href="./logout">logout`
+            request.session.destroy(); // after invoice is sent, customer session is destroyed and cart is cleared but still lets them log out to feel like a real store
             session.username = undefined; // session username becomes undefined, clearing UI messages
 
-            response.send(str);
+            response.send();
         }
     }
 });
 
-app.post("/process_form", function(request, response) { // posts data from the process form, with action named "process_form"
-    POST = request.body; // lets POST variable hold contents of the body 
+app.post("/process_form", function(request, response) { // posts data from the process form, with action named process_form
+    POST = request.body;
     RS = request.session
     var hasPurchases = false; // sets hasPurchases variable to false, assuming that the quantity of purchases starts off as false
     var isValidData = true; // sets is ValidData variable to true, assuming that the data entered is valid
@@ -753,16 +759,16 @@ app.post("/process_form", function(request, response) { // posts data from the p
             }
 
         }
-    } // Received help from Professor Port's office hours
+    } //reference kylie dee
     var qString = queryString.stringify(POST); // creates qString variable to string the query together
     if (isValidData == true && hasPurchases == true) { // if the quantity is a valid integer and the quantity is valid for purchase + add the valid amount to cart
         RS.cart[product_type] = POST; // then request the body of sessions cart data by product type
-        qString += "&addedToCart=true"; // add to qString a string in URL that identifies that something valid has been added to the cart (created & used to send alert that items have been added on page)
+        qString += "&addedToCart=true"; // add to qString a string in URL that identifies that something valid has been added to the cart
         console.log(RS.cart); // log the sessions cart into the console
     }
     response.redirect(`${request.headers["referer"]}?` + qString); // redirects to same page with same qString when items are added
 });
-//reference kydee
+
 
 
 // direct lab 13 reference
@@ -774,5 +780,6 @@ function isNonNegInt(qty, returnErrors = false) {
     if (parseInt(qty) != qty) errors.push('Not an integer!'); // Check that it is an integer
     return returnErrors ? errors : (errors.length == 0);
 }
+
 app.use(express.static('./public')); // makes a static server using express from the public
 app.listen(8080, () => console.log(`listen on port 8080`))
