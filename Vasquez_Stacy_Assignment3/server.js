@@ -20,12 +20,14 @@ var cookieParser = require('cookie-parser'); // assigns cookieParser variable to
 app.use(cookieParser());
 
 var session = require('express-session'); // assigns session variable to require express-session 
+
 app.use(session({
     secret: "ITM352 rocks!",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    secure: true,
+    ephemeral: true //this deletes this cookie when browser is closed 
 }));
-
 
 // port's A1 Example
 // Uses function to check if string is a non-negative integer
@@ -420,17 +422,17 @@ app.post("/process_registration", function(request, response) {
     // reference from lab 15
     if (errors.length == 0) {
         console.log('No errors found. Valid log-in');
-        var fullname = POST["fullname"];
-        users_reg_data[fullname] = {}; // saving fullname as array name
-        users_reg_data[fullname].username = POST["name"];
-        users_reg_data[fullname].password = POST['password'];
-        users_reg_data[fullname].email = POST['email'];
+        var reguser = POST.username.toLowerCase();
+        users_reg_data[reguser] = {}; // saving fullname as array name
+        users_reg_data[reguser].name = POST["name"];
+        users_reg_data[reguser].password = POST['password'];
+        users_reg_data[reguser].email = POST['email'];
         data = JSON.stringify(users_reg_data); // making varible 
         fs.writeFileSync(filename, data, "utf-8"); // adding to JSON
         quantityQuery_str = queryString.stringify(quantity_str);
         response.send(`
         <link rel="stylesheet" href="./products_style.css"> 
-        <h2>Hi <font color="red">${fullname}</font>! Thank you for registering<br><br> Click <a href="./process_login">here</a> to log into your new account`);
+        <h2>Hi <font color="red">${users_reg_data[reguser].name}</font>! Thank you for registering<br><br> Click <a href="./process_login">here</a> to log into your new account`);
         response.redirect('./invoice'); // redirects user to their cart upon successful registration, requiring them to log in with new account info to gain access to purchase items in their cart
 
     }

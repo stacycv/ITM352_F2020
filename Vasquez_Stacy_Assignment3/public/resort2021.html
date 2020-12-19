@@ -107,7 +107,7 @@ The purpose is to let the customers purchase their desired products and not let 
                                             CART(${cart})</p>
                                         `)
                                 } else {
-                                    document.write(`CART()`)
+                                    document.write(`CART`)
                                 };
                             </script>
                         </a>
@@ -117,14 +117,13 @@ The purpose is to let the customers purchase their desired products and not let 
             <br>
             <main>
                 <script>
-                    var theUser = getCookie('name'); //looking for cookie name
+                    var theUser = getCookie('username'); //looking for cookie name
                     if (theUser != undefined) { //if name can be found
-                        document.write(`You are logged in!<br> `); // let user know their logged in
+                        document.write(`Hi there${theUser}! You are<br> `); // let user know their logged in
                     } else {
-                        document.write(
-                                `Be sure to log in!<br> `) //if not, let user know to be sure to log in
-                    };
-                    document.write("SHOPPING RESORT 2021");
+                        document.write(`Hi there! You are<br> `);
+                    }
+                    document.write("<b>SHOPPING RESORT 2021</b>");
                     //all referenced from assignment 1 screencast & changing footer to load to cart + specifing what array
                     for (i = 0; i < resort2021.length; i++) {
                         document.write(`

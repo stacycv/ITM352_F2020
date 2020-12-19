@@ -122,14 +122,13 @@ The purpose is to let the customers purchase their desired products and not let 
             <br>
             <main>
                 <script>
-                    var theUser = getCookie('name'); //looking for cookie name
+                    var theUser = getCookie('username'); //looking for cookie name
                     if (theUser != undefined) { //if name can be found
-                        document.write(`You are logged in!<br> `); // let user know their logged in
+                        document.write(`Hi there${theUser}! You are<br> `); // let user know their logged in
                     } else {
-                        document.write(
-                                `Be sure to log in!<br> `) //if not, let user know to be sure to log in
-                    };
-                    document.write("SHOPPING SPRING 2020");
+                        document.write(`Hi there! You are<br> `);
+                    }
+                    document.write("<b>SHOPPING SPRING 2020</b>");
                     //all referenced from assignment 1 screencast & changing footer to load to cart + specifing what array, card div reference from ww3 schools
                     for (i = 0; i < spring2020.length; i++) {
                         document.write(`
