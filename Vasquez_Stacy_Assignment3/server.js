@@ -95,7 +95,7 @@ app.get("/process_login", function(request, response) { //created to display log
       <form action="/process_login" method="POST">`
 
         if (session.username != undefined) { // if sessions username is not undefined, send a UI personalized user message that lets them know their login was successful, the time & date they logged in, and tells them to go back to shop (if login link in navbar is clicked again after successfully logging in, this message will help prevent them from logging in more than once )
-            str += `<br><br><h1>Hello ${session.username}! You are already logged in<br><p style="color:red"> Please Go Back to Shop</p><br> If you would like to logout, please click <a href="./logout">here</a><br><br><h1>_______________________________________</h1> `
+            str += `<br><br><h1>Hello ${session.username}! Looking to logout? <br><p style="color:red"> Please Go Back to Shop</p><br> If you would like to logout, please click <a href="./logout">here</a><br><br><h1>_______________________________________</h1> `
         } else {
 
             str += `    <title>Login Page</title>
@@ -518,11 +518,7 @@ app.get("/display_cart", function(request, response, next) { //created to displa
               <!--Show the quantity of each product-->
               <hr class="space" />
               <label id="quantity${i}_label" class="shop-item-quantity">Quantity: ${q}</label>
-              <div>
-               <input type="button" value="Modify Quantity" onclick="/functions.js">
-                       <input type="button"<li><a href="/function.removeItem()">LOGIN</a></li> value="Remove" onclick="functions.js">
-                    </div>
-              </div>
+              
               <div class="shop-item-details">
               <!--List the prices and extended prices-->
                   <hr class="space" />
@@ -720,8 +716,9 @@ app.get("/invoice", function(request, response, next) { //created to generate in
             request.session.destroy(); // after invoice is sent, customer session is destroyed and cart is cleared but still lets them log out to feel like a real store
             session.username = undefined; // session username becomes undefined, clearing UI messages
 
-            response.send();
+
         }
+        response.send(str);
     }
 });
 

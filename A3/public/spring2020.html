@@ -1,8 +1,7 @@
 <!--
-Stacy Vasquez's Assignment 2 products display page 12/18/2020
+Stacy Vasquez's Assignment 2 products display page 12/1/2020
 A1 - referenced A1 examples and screencast
 A2 - copied Stacy Vasquez's A1
-A3 - created to display 1/4 product pages
 The purpose is to let the customers purchase their desired products and not let them continue if an invalid quantity is entered
 -->
 <script src="./products_data.js" type="text/javascript">
@@ -10,7 +9,6 @@ The purpose is to let the customers purchase their desired products and not let 
 <script>
     var product_type = "spring2020"; // allows access to array
     //Referenced from assignment 1 examples
-
     function isNonNegInt(amount, return_errors = false) {
         errors = []; // assuming no errors
         if (amount == '') amount = 0; // handles blank inputs as 0s
@@ -76,16 +74,16 @@ The purpose is to let the customers purchase their desired products and not let 
             </h1>
 
 
-
             <ul>
                 <header>
                     <li><a href="index.html">HOME</a></li>
-                    <li><a href="summer2020.html">SUMMER 2020</a></li>
-                    <li><a href="fall2020.html">FALL 2020</a></li>
-                    <li><a href="resort2021.html">RESORT 2021</a></li>
-                    <li><a class="active" href="/process_registration">REGISTER</a></li>
-                    <li><a class="active" href="/process_login">LOGIN</a></li>
-                    <li><a class="active" href="/display_cart">CART</a></li>
+                    <li><a class="active" href="collection_display.html">SHOP BY COLLECTION</a></li>
+                    <li>
+                        <a href="registrationPage.html">REGISTER</a>
+                    </li>
+                    <li><a href="loginPage.html">LOGIN</a></li>
+                    <li><a href="/display_cart">CART</a></li>
+
             </ul>
             </header>
             <br>
@@ -97,10 +95,7 @@ The purpose is to let the customers purchase their desired products and not let 
                         document.write(`
                                         <section class="item">
                                             
-                                            <div class="card">
                                             <br><img src="${spring2020[i].image}">
-                                            <img src="${spring2020[i].image2}"">
-                                            </div>
                                             <h3>${spring2020[i].name}</h3>
                                             <p>$${spring2020[i].price}</p>
                                             <label id="quantity${i}_label"}">Quantity</label>
